@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 import 'package:recipe_mobile_frontend/screens/LoginForm.dart';
+import 'package:recipe_mobile_frontend/screens/RegisterScreen.dart';
+import 'package:recipe_mobile_frontend/screens/profile.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -62,7 +64,6 @@ class _HomeScreenState extends State<HomeScreen> {
                         // _categoryCircle("veg"),
                         // _categoryCircle("non-veg"),
                         // _categoryCircle("vegan")
-                        
                       ],
                     ),
                   )
@@ -70,9 +71,11 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
           ),
-
           LoginScreen(),
-          //RegisterScreen(),
+          RegisterScreen(),
+          ProfileSetUpScreen(
+            username: "ram",
+          ),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
