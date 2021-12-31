@@ -22,7 +22,7 @@ class DetailsScreen extends StatelessWidget {
                   child: Image(
                     fit: BoxFit.cover,
                     image: AssetImage(
-                      "assests/images/Detail.jpg",
+                      "assets/images/pic1.jpg",
                     ),
                   ),
                 ),

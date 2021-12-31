@@ -118,9 +118,9 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
           SearchScreen(),
-          RegisterScreen(),
+          //RegisterScreen(),
           // SearchScreen(),
-          //DetailsScreen(),
+          DetailsScreen(),
           ProfileSetUpScreen(
             username: "ram",
           ),
