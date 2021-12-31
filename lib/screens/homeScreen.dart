@@ -4,6 +4,7 @@ import 'package:recipe_mobile_frontend/screens/LoginForm.dart';
 import 'package:recipe_mobile_frontend/screens/RegisterScreen.dart';
 import 'package:recipe_mobile_frontend/screens/profile.dart';
 import 'package:recipe_mobile_frontend/screens/DetailScreen.dart';
+import 'package:recipe_mobile_frontend/screens/SearchScreen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -62,9 +63,53 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: ListView(
                       scrollDirection: Axis.horizontal,
                       children: [
-                        // _categoryCircle("veg"),
-                        // _categoryCircle("non-veg"),
-                        // _categoryCircle("vegan")
+                        _categoryCircle("veg"),
+                        _categoryCircle("non-veg"),
+                        _categoryCircle("vegan")
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Text(
+                    " Popular Recipes",
+                    style: TextStyle(fontSize: 16, color: Colors.green),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Container(
+                    height: 250,
+                    width: double.infinity,
+                    child: ListView(
+                      scrollDirection: Axis.horizontal,
+                      children: [
+                        _categoryCircle("veg"),
+                        _categoryCircle("non-veg"),
+                        _categoryCircle("vegan")
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Text(
+                    "Recommendation Recipes",
+                    style: TextStyle(fontSize: 16, color: Colors.green),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Container(
+                    height: 250,
+                    width: double.infinity,
+                    child: ListView(
+                      scrollDirection: Axis.horizontal,
+                      children: [
+                        _categoryCircle("veg"),
+                        _categoryCircle("non-veg"),
+                        _categoryCircle("vegan")
                       ],
                     ),
                   )
@@ -72,9 +117,10 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
           ),
-          LoginScreen(),
-          //RegisterScreen(),
-          DetailsScreen(),
+          SearchScreen(),
+          RegisterScreen(),
+          // SearchScreen(),
+          //DetailsScreen(),
           ProfileSetUpScreen(
             username: "ram",
           ),
@@ -97,21 +143,21 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           BottomNavigationBarItem(
             icon: Icon(
-              Icons.home,
+              Icons.search,
               color: (currentIndex == 1) ? Colors.red : Colors.green,
             ),
             label: "",
           ),
           BottomNavigationBarItem(
             icon: Icon(
-              Icons.home,
+              Icons.favorite,
               color: (currentIndex == 2) ? Colors.red : Colors.green,
             ),
             label: "",
           ),
           BottomNavigationBarItem(
             icon: Icon(
-              Icons.home,
+              Icons.person,
               color: (currentIndex == 3) ? Colors.red : Colors.green,
             ),
             label: "",
@@ -121,26 +167,26 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-//   GestureDetector _categoryCircle(String title) {
-//     return GestureDetector(
-//       onTap: () {
-//         Navigator.push(
-//             context, MaterialPageRoute(builder: (context) => NutritionInfo()));
-//       },
-//       child: Column(
-//         children: [
-//           Container(
-//             width: 150,
-//             height: 200,
-//             decoration: BoxDecoration(
-//               color: Colors.red,-
-//               borderRadius: BorderRadius.circular(8),
-//             ),
-//             margin: EdgeInsets.only(right: 5),
-//           ),
-//           Text(title)
-//         ],
-//       ),
-//     );
-//   }
+  GestureDetector _categoryCircle(String title) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => DetailsScreen()));
+      },
+      child: Column(
+        children: [
+          Container(
+            width: 150,
+            height: 200,
+            decoration: BoxDecoration(
+              color: Colors.red,
+              borderRadius: BorderRadius.circular(8),
+            ),
+            margin: EdgeInsets.only(right: 5),
+          ),
+          Text(title)
+        ],
+      ),
+    );
+  }
 }
