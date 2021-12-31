@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:recipe_mobile_frontend/screens/LoginForm.dart';
 import 'package:recipe_mobile_frontend/screens/RegisterScreen.dart';
 import 'package:recipe_mobile_frontend/screens/profile.dart';
+import 'package:recipe_mobile_frontend/screens/DetailScreen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -72,7 +73,8 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
           LoginScreen(),
-          RegisterScreen(),
+          //RegisterScreen(),
+          DetailsScreen(),
           ProfileSetUpScreen(
             username: "ram",
           ),
