@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-//import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
-class DetailsScreen extends StatelessWidget {
-  const DetailsScreen({Key? key}) : super(key: key);
+class NutritionInfo extends StatelessWidget {
+  const NutritionInfo({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +22,7 @@ class DetailsScreen extends StatelessWidget {
                   child: Image(
                     fit: BoxFit.cover,
                     image: AssetImage(
-                      "assets/images/pic1.jpg",
+                      "assets/images/pic2.jpg",
                     ),
                   ),
                 ),
@@ -77,7 +77,7 @@ class DetailsScreen extends StatelessWidget {
                               children: [
                                 Expanded(
                                   child: Text(
-                                    "Hello sdfhhfgiuh idofgjdoifg kuyhiuh kuyhiuughuhuio iuhiuhiuyguiogyigiuyogo kjgjhkhbiuhiuhbuibniu uyguiyguytgu",
+                                    "Russian Mushroom and Potato Soup",
                                     maxLines: 2,
                                     overflow: TextOverflow.ellipsis,
                                     style: TextStyle(
@@ -85,11 +85,11 @@ class DetailsScreen extends StatelessWidget {
                                         fontWeight: FontWeight.w500),
                                   ),
                                 ),
-                                Icon(Icons.local_movies)
+                                Icon(Icons.favorite)
                               ],
                             ),
                             Text(
-                              "my name is bishnu silwal",
+                              "there are 4 iutrition info",
                               style: TextStyle(
                                 fontSize: 14,
                                 fontWeight: FontWeight.normal,
@@ -105,25 +105,25 @@ class DetailsScreen extends StatelessWidget {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                // Container(
-                                //   height: 20,
-                                //   child: RatingBar.builder(
-                                //     initialRating: 3,
-                                //     minRating: 1,
-                                //     direction: Axis.horizontal,
-                                //     allowHalfRating: true,
-                                //     itemCount: 5,
-                                //     itemSize: 16,
-                                // itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
-                                //     itemBuilder: (context, _) => Icon(
-                                //         Icons.star,
-                                //         color: Colors.amber,
-                                //         size: 8),
-                                //     onRatingUpdate: (rating) {
-                                //       print(rating);
-                                //     },
-                                //   ),
-                                // ),
+                                Container(
+                                  height: 20,
+                                  child: RatingBar.builder(
+                                    initialRating: 3,
+                                    minRating: 1,
+                                    direction: Axis.horizontal,
+                                    allowHalfRating: true,
+                                    itemCount: 5,
+                                    itemSize: 16,
+                                    // itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
+                                    itemBuilder: (context, _) => Icon(
+                                        Icons.star,
+                                        color: Colors.amber,
+                                        size: 8),
+                                    onRatingUpdate: (rating) {
+                                      print(rating);
+                                    },
+                                  ),
+                                ),
                                 Container(
                                   height: 20,
                                   child: Row(
@@ -158,39 +158,64 @@ class DetailsScreen extends StatelessWidget {
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  "Rating and review ",
-                  style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.normal,
-                      color: Colors.black),
+                RichText(
+                  text: TextSpan(
+                      text: ' Prep: 1 mins \n',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      children: [
+                        TextSpan(
+                            text: ' Cook: 1 mins\n',
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                            )),
+                        TextSpan(
+                            text: ' Total: 2 mins\n',
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                            )),
+                        TextSpan(
+                            text: 'Servings: 6\n',
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                            )),
+                        TextSpan(
+                            text: 'Yield: 6 servings\n',
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                            )),
+                      ]),
                 ),
               ],
             ),
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  "Directions",
-                  style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.normal,
-                      color: Colors.black),
+                RichText(
+                  text: TextSpan(
+                      text: 'Nutrtion Facts \n',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      children: [
+                        TextSpan(
+                            text:
+                                'Per Serving: 64 calories protein 2.8g carbohydrates 6.6g fat 3.3g cholesterol 6.9mg; sodium 144.6mg \n',
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                            )),
+                      ]),
                 ),
               ],
-            ),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "Ingredients",
-                  style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.normal,
-                      color: Colors.black),
-                ),
-              ],
-            ),
+            )
           ],
         )),
       ),

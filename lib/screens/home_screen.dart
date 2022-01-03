@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 
 import 'package:recipe_mobile_frontend/screens/LoginForm.dart';
 import 'package:recipe_mobile_frontend/screens/RegisterScreen.dart';
+import 'package:recipe_mobile_frontend/screens/nutrition_screen.dart';
 import 'package:recipe_mobile_frontend/screens/profile.dart';
-import 'package:recipe_mobile_frontend/screens/DetailScreen.dart';
+import 'package:recipe_mobile_frontend/screens/detail_screen.dart';
 import 'package:recipe_mobile_frontend/screens/SearchScreen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -50,9 +51,18 @@ class _HomeScreenState extends State<HomeScreen> {
                   SizedBox(
                     height: 10,
                   ),
-                  Text(
-                    "Category Recipes",
-                    style: TextStyle(fontSize: 16, color: Colors.green),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "Category Recipes",
+                        style: TextStyle(fontSize: 16, color: Colors.green),
+                      ),
+                      Text(
+                        "View all",
+                        style: TextStyle(fontSize: 16, color: Colors.green),
+                      ),
+                    ],
                   ),
                   SizedBox(
                     height: 10,
@@ -63,18 +73,27 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: ListView(
                       scrollDirection: Axis.horizontal,
                       children: [
-                        _categoryCircle("veg"),
-                        _categoryCircle("non-veg"),
-                        _categoryCircle("vegan")
+                        _categoryStackCircle("Veg"),
+                        _categoryStackCircle("NOn-Veg"),
+                        _categoryStackCircle("Vegan"),
                       ],
                     ),
                   ),
                   SizedBox(
                     height: 10,
                   ),
-                  Text(
-                    " Popular Recipes",
-                    style: TextStyle(fontSize: 16, color: Colors.green),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "Category Recipes",
+                        style: TextStyle(fontSize: 16, color: Colors.green),
+                      ),
+                      Text(
+                        "View all",
+                        style: TextStyle(fontSize: 16, color: Colors.green),
+                      ),
+                    ],
                   ),
                   SizedBox(
                     height: 10,
@@ -85,18 +104,27 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: ListView(
                       scrollDirection: Axis.horizontal,
                       children: [
-                        _categoryCircle("veg"),
-                        _categoryCircle("non-veg"),
-                        _categoryCircle("vegan")
+                        _categoryStackCircle("Veg"),
+                        _categoryStackCircle("NOn-Veg"),
+                        _categoryStackCircle("Vegan"),
                       ],
                     ),
                   ),
                   SizedBox(
                     height: 10,
                   ),
-                  Text(
-                    "Recommendation Recipes",
-                    style: TextStyle(fontSize: 16, color: Colors.green),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "Category Recipes",
+                        style: TextStyle(fontSize: 16, color: Colors.green),
+                      ),
+                      Text(
+                        "View all",
+                        style: TextStyle(fontSize: 16, color: Colors.green),
+                      ),
+                    ],
                   ),
                   SizedBox(
                     height: 10,
@@ -107,12 +135,12 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: ListView(
                       scrollDirection: Axis.horizontal,
                       children: [
-                        _categoryCircle("veg"),
-                        _categoryCircle("non-veg"),
-                        _categoryCircle("vegan")
+                        _categoryStackCircle("Veg"),
+                        _categoryStackCircle("NOn-Veg"),
+                        _categoryStackCircle("Vegan"),
                       ],
                     ),
-                  )
+                  ),
                 ],
               ),
             ),
@@ -120,7 +148,8 @@ class _HomeScreenState extends State<HomeScreen> {
           SearchScreen(),
           //RegisterScreen(),
           // SearchScreen(),
-          DetailsScreen(),
+          //DetailsScreen(),
+          NutritionInfo(),
           ProfileSetUpScreen(
             username: "ram",
           ),
@@ -182,6 +211,33 @@ class _HomeScreenState extends State<HomeScreen> {
               color: Colors.red,
               borderRadius: BorderRadius.circular(8),
             ),
+            margin: EdgeInsets.only(right: 5),
+          ),
+          Text(title)
+        ],
+      ),
+    );
+  }
+
+  GestureDetector _categoryStackCircle(String title) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => DetailsScreen()));
+      },
+      child: Stack(
+        children: [
+          Container(
+            width: 150,
+            height: 200,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8),
+                image: DecorationImage(
+                  fit: BoxFit.cover,
+                  image: AssetImage(
+                    "assets/images/pic1.jpg",
+                  ),
+                )),
             margin: EdgeInsets.only(right: 5),
           ),
           Text(title)
