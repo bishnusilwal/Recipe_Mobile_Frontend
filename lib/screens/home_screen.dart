@@ -8,6 +8,7 @@ import 'package:recipe_mobile_frontend/screens/detail_screen.dart';
 import 'package:recipe_mobile_frontend/screens/SearchScreen.dart';
 
 import 'ingredient_screen.dart';
+import 'rating_review_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -148,6 +149,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
           SearchScreen(),
+          RatingReviewScreen(),
           //RegisterScreen(),
           // SearchScreen(),
           //DetailsScreen(),
