@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:recipe_mobile_frontend/widget/colors.dart';
 //import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class RatingReviewScreen extends StatefulWidget {
@@ -178,7 +179,36 @@ class _RatingReviewScreenState extends State<RatingReviewScreen> {
                 ),
               ],
             ),
-            ratingBar
+            ratingBar,
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 3.0),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(15.0),
+                color: inputBoxColor,
+              ),
+              child: TextFormField(
+                // controller: controller,
+                // keyboardType: keyboardType,
+                // obscureText: isInvisible!,
+                maxLines: 5,
+                decoration: const InputDecoration(
+                  hintText: "Write something!",
+                  border: InputBorder.none,
+                ),
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.all(25),
+              child: FlatButton(
+                child: Text(
+                  'Submit',
+                  style: TextStyle(fontSize: 20.0),
+                ),
+                color: Colors.blueAccent,
+                textColor: Colors.white,
+                onPressed: () {},
+              ),
+            ),
           ],
         )),
       ),

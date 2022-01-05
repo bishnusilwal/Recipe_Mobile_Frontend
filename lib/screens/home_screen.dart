@@ -150,6 +150,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           SearchScreen(),
           RatingReviewScreen(),
+
           //RegisterScreen(),
           // SearchScreen(),
           //DetailsScreen(),
