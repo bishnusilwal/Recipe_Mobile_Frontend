@@ -6,6 +6,7 @@ import 'package:recipe_mobile_frontend/screens/nutrition_screen.dart';
 import 'package:recipe_mobile_frontend/screens/profile.dart';
 import 'package:recipe_mobile_frontend/screens/detail_screen.dart';
 import 'package:recipe_mobile_frontend/screens/SearchScreen.dart';
+import 'package:recipe_mobile_frontend/screens/veg_screen.dart';
 
 import 'ingredient_screen.dart';
 import 'rating_review_screen.dart';
@@ -76,9 +77,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: ListView(
                       scrollDirection: Axis.horizontal,
                       children: [
-                        _categoryStackCircle("Veg"),
-                        _categoryStackCircle("NOn-Veg"),
-                        _categoryStackCircle("Vegan"),
+                        RecipeCard( title: "Veg", image: "assets/images/pic1.jpg"),
+                        RecipeCard( title: "NOn-Veg", image: "assets/images/pic1.jpg"),
+                        RecipeCard(title: "Vegan", image: "assets/images/pic1.jpg"),
                       ],
                     ),
                   ),
@@ -107,9 +108,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: ListView(
                       scrollDirection: Axis.horizontal,
                       children: [
-                        _categoryStackCircle("Veg"),
-                        _categoryStackCircle("NOn-Veg"),
-                        _categoryStackCircle("Vegan"),
+                        RecipeCard( title: "Veg", image: "assets/images/pic1.jpg"),
+                        RecipeCard(title: "NOn-Veg", image: "assets/images/pic1.jpg"),
+                        RecipeCard( title: "Vegan", image: "assets/images/pic1.jpg"),
                       ],
                     ),
                   ),
@@ -138,9 +139,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: ListView(
                       scrollDirection: Axis.horizontal,
                       children: [
-                        _categoryStackCircle("Veg"),
-                        _categoryStackCircle("NOn-Veg"),
-                        _categoryStackCircle("Vegan"),
+                        RecipeCard( title: "Veg", image: "assets/images/pic1.jpg"),
+                        RecipeCard( title: "NOn-Veg", image: "assets/images/pic1.jpg"),
+                        RecipeCard(title: "Vegan", image: "assets/images/pic1.jpg"),
                       ],
                     ),
                   ),
@@ -155,7 +156,8 @@ class _HomeScreenState extends State<HomeScreen> {
           // SearchScreen(),
           //DetailsScreen(),
           //NutritionInfo(),
-          Ingredient(),
+          // Ingredient(),
+          VegScreen(),
           ProfileSetUpScreen(
             username: "ram",
           ),
@@ -224,8 +226,20 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
+}
 
-  GestureDetector _categoryStackCircle(String title) {
+class RecipeCard extends StatelessWidget {
+  const RecipeCard({
+    Key? key,
+    required this.title,
+    required this.image,
+  }) : super(key: key);
+
+  final String title;
+  final String image;
+
+  @override
+  Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
         Navigator.push(
@@ -241,12 +255,12 @@ class _HomeScreenState extends State<HomeScreen> {
                 image: DecorationImage(
                   fit: BoxFit.cover,
                   image: AssetImage(
-                    "assets/images/pic1.jpg",
+                    image,
                   ),
                 )),
             margin: EdgeInsets.only(right: 5),
           ),
-          Text(title)
+          Center(child: Text(title, style: TextStyle(color: Colors.white)))
         ],
       ),
     );
