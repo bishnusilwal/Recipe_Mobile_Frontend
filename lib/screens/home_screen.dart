@@ -3,12 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:recipe_mobile_frontend/screens/LoginForm.dart';
 import 'package:recipe_mobile_frontend/screens/RegisterScreen.dart';
 import 'package:recipe_mobile_frontend/screens/nutrition_screen.dart';
-import 'package:recipe_mobile_frontend/screens/profile.dart';
+import 'package:recipe_mobile_frontend/screens/profile_form.dart';
 import 'package:recipe_mobile_frontend/screens/detail_screen.dart';
 import 'package:recipe_mobile_frontend/screens/SearchScreen.dart';
 import 'package:recipe_mobile_frontend/screens/veg_screen.dart';
 
 import 'ingredient_screen.dart';
+import 'profile_details.dart';
 import 'rating_review_screen.dart';
 import 'recipe_form.dart';
 
@@ -163,8 +164,9 @@ class _HomeScreenState extends State<HomeScreen> {
           //DetailsScreen(),
           //NutritionInfo(),
           // RatingReviewScreen(),
-          FormScreen(),
+          // FormScreen(),
           // RecipeScreen(),
+          ProfileDetails(),
           ProfileSetUpScreen(
             username: "ram",
           ),
