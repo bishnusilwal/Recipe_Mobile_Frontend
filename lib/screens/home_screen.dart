@@ -10,6 +10,7 @@ import 'package:recipe_mobile_frontend/screens/veg_screen.dart';
 
 import 'ingredient_screen.dart';
 import 'rating_review_screen.dart';
+import 'recipe_form.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -62,10 +63,6 @@ class _HomeScreenState extends State<HomeScreen> {
                         "Category Recipes",
                         style: TextStyle(fontSize: 16, color: Colors.green),
                       ),
-                      Text(
-                        "View all",
-                        style: TextStyle(fontSize: 16, color: Colors.green),
-                      ),
                     ],
                   ),
                   SizedBox(
@@ -77,9 +74,12 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: ListView(
                       scrollDirection: Axis.horizontal,
                       children: [
-                        RecipeCard( title: "Veg", image: "assets/images/pic1.jpg"),
-                        RecipeCard( title: "NOn-Veg", image: "assets/images/pic1.jpg"),
-                        RecipeCard(title: "Vegan", image: "assets/images/pic1.jpg"),
+                        RecipeCard(
+                            title: "Veg", image: "assets/images/pic1.jpg"),
+                        RecipeCard(
+                            title: "NOn-Veg", image: "assets/images/pic1.jpg"),
+                        RecipeCard(
+                            title: "Vegan", image: "assets/images/pic1.jpg"),
                       ],
                     ),
                   ),
@@ -90,7 +90,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        "Category Recipes",
+                        "Popular Recipes",
                         style: TextStyle(fontSize: 16, color: Colors.green),
                       ),
                       Text(
@@ -108,9 +108,12 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: ListView(
                       scrollDirection: Axis.horizontal,
                       children: [
-                        RecipeCard( title: "Veg", image: "assets/images/pic1.jpg"),
-                        RecipeCard(title: "NOn-Veg", image: "assets/images/pic1.jpg"),
-                        RecipeCard( title: "Vegan", image: "assets/images/pic1.jpg"),
+                        RecipeCard(
+                            title: "Veg", image: "assets/images/pic1.jpg"),
+                        RecipeCard(
+                            title: "NOn-Veg", image: "assets/images/pic1.jpg"),
+                        RecipeCard(
+                            title: "Vegan", image: "assets/images/pic1.jpg"),
                       ],
                     ),
                   ),
@@ -121,7 +124,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        "Category Recipes",
+                        "Recommendation Recipes",
                         style: TextStyle(fontSize: 16, color: Colors.green),
                       ),
                       Text(
@@ -139,9 +142,12 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: ListView(
                       scrollDirection: Axis.horizontal,
                       children: [
-                        RecipeCard( title: "Veg", image: "assets/images/pic1.jpg"),
-                        RecipeCard( title: "NOn-Veg", image: "assets/images/pic1.jpg"),
-                        RecipeCard(title: "Vegan", image: "assets/images/pic1.jpg"),
+                        RecipeCard(
+                            title: "Veg", image: "assets/images/pic1.jpg"),
+                        RecipeCard(
+                            title: "NOn-Veg", image: "assets/images/pic1.jpg"),
+                        RecipeCard(
+                            title: "Vegan", image: "assets/images/pic1.jpg"),
                       ],
                     ),
                   ),
@@ -150,14 +156,15 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
           SearchScreen(),
-          RatingReviewScreen(),
+          // RatingReviewScreen(),
 
           //RegisterScreen(),
           // SearchScreen(),
           //DetailsScreen(),
           //NutritionInfo(),
-          // Ingredient(),
-          VegScreen(),
+          // RatingReviewScreen(),
+          FormScreen(),
+          // RecipeScreen(),
           ProfileSetUpScreen(
             username: "ram",
           ),
@@ -208,7 +215,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return GestureDetector(
       onTap: () {
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => DetailsScreen()));
+            context, MaterialPageRoute(builder: (context) => RecipeScreen()));
       },
       child: Column(
         children: [

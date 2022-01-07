@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:recipe_mobile_frontend/screens/home_screen.dart';
 
-class VegScreen extends StatefulWidget {
-  const VegScreen({Key? key}) : super(key: key);
+class RecipeScreen extends StatefulWidget {
+  const RecipeScreen({Key? key}) : super(key: key);
 
   @override
-  _VegScreenState createState() => _VegScreenState();
+  _RecipeScreenState createState() => _RecipeScreenState();
 }
 
-class _VegScreenState extends State<VegScreen> {
+class _RecipeScreenState extends State<RecipeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

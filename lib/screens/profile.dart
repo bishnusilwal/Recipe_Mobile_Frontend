@@ -223,6 +223,18 @@ class _ProfileSetUpScreenState extends State<ProfileSetUpScreen> {
               suffixIcon: null,
               controller: bioController,
             ),
+            Container(
+              margin: EdgeInsets.all(25),
+              child: FlatButton(
+                child: Text(
+                  'Submit',
+                  style: TextStyle(fontSize: 20.0),
+                ),
+                color: Colors.blueAccent,
+                textColor: Colors.white,
+                onPressed: () {},
+              ),
+            ),
           ],
         ),
       ),
