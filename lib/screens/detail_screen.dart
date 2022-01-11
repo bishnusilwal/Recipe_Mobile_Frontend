@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:recipe_mobile_frontend/screens/rating_review_screen.dart';
+
+import 'LoginForm.dart';
+import 'direction_screen.dart';
+import 'ingredient_screen.dart';
+import 'nutrition_screen.dart';
 //import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class DetailsScreen extends StatelessWidget {
@@ -148,48 +154,64 @@ class DetailsScreen extends StatelessWidget {
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  "Nutration Info",
-                  style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.normal,
-                      color: Colors.black),
+                TextButton(
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => Ingredient()));
+                  },
+                  child: Text(
+                    'Ingredients',
+                    textAlign: TextAlign.end,
+                  ),
                 ),
               ],
             ),
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  "Rating and review ",
-                  style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.normal,
-                      color: Colors.black),
+                TextButton(
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => Direction()));
+                  },
+                  child: Text(
+                    'Directions',
+                    textAlign: TextAlign.end,
+                  ),
                 ),
               ],
             ),
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  "Directions",
-                  style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.normal,
-                      color: Colors.black),
+                TextButton(
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => NutritionInfo()));
+                  },
+                  child: Text(
+                    'NutritionInfo',
+                    textAlign: TextAlign.end,
+                  ),
                 ),
               ],
             ),
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  "Ingredients",
-                  style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.normal,
-                      color: Colors.black),
+                TextButton(
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => RatingReviewScreen()));
+                  },
+                  child: Text(
+                    'Rating & Review',
+                    textAlign: TextAlign.end,
+                  ),
                 ),
               ],
             ),

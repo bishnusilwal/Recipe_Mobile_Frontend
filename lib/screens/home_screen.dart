@@ -40,16 +40,16 @@ class _HomeScreenState extends State<HomeScreen> {
         controller: _controller,
         children: [
           Scaffold(
-            appBar: AppBar(
-              title: Icon(Icons.ac_unit_rounded),
-              backgroundColor: Colors.red,
-              actions: [
-                Icon(Icons.person),
-                SizedBox(
-                  width: 30,
-                )
-              ],
-            ),
+            // appBar: AppBar(
+            //   title: Icon(Icons.ac_unit_rounded),
+            //   backgroundColor: Colors.red,
+            //   actions: [
+            //     Icon(Icons.person),
+            //     SizedBox(
+            //       width: 30,
+            //     )
+            //   ],
+            // ),
             body: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -78,9 +78,9 @@ class _HomeScreenState extends State<HomeScreen> {
                         RecipeCard(
                             title: "Veg", image: "assets/images/pic1.jpg"),
                         RecipeCard(
-                            title: "NOn-Veg", image: "assets/images/pic1.jpg"),
+                            title: "Non-Veg", image: "assets/images/pic2.jpg"),
                         RecipeCard(
-                            title: "Vegan", image: "assets/images/pic1.jpg"),
+                            title: "Vegan", image: "assets/images/pic3.jpg"),
                       ],
                     ),
                   ),
@@ -94,10 +94,14 @@ class _HomeScreenState extends State<HomeScreen> {
                         "Popular Recipes",
                         style: TextStyle(fontSize: 16, color: Colors.green),
                       ),
-                      Text(
-                        "View all",
-                        style: TextStyle(fontSize: 16, color: Colors.green),
-                      ),
+                      TextButton(
+                          child: Text('View all'),
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => RecipeScreen()));
+                          })
                     ],
                   ),
                   SizedBox(
@@ -109,12 +113,15 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: ListView(
                       scrollDirection: Axis.horizontal,
                       children: [
-                        RecipeCard(
-                            title: "Veg", image: "assets/images/pic1.jpg"),
-                        RecipeCard(
-                            title: "NOn-Veg", image: "assets/images/pic1.jpg"),
-                        RecipeCard(
-                            title: "Vegan", image: "assets/images/pic1.jpg"),
+                        PopularCard(
+                            title: "Aloo Do Pyaza",
+                            image: "assets/images/pic3.jpg"),
+                        PopularCard(
+                            title: "Paneer Masala Fry",
+                            image: "assets/images/pic1.jpg"),
+                        PopularCard(
+                            title: "Keema Naan",
+                            image: "assets/images/pic2.jpg"),
                       ],
                     ),
                   ),
@@ -128,10 +135,14 @@ class _HomeScreenState extends State<HomeScreen> {
                         "Recommendation Recipes",
                         style: TextStyle(fontSize: 16, color: Colors.green),
                       ),
-                      Text(
-                        "View all",
-                        style: TextStyle(fontSize: 16, color: Colors.green),
-                      ),
+                      TextButton(
+                          child: Text('View all'),
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => RecipeScreen()));
+                          })
                     ],
                   ),
                   SizedBox(
@@ -144,11 +155,12 @@ class _HomeScreenState extends State<HomeScreen> {
                       scrollDirection: Axis.horizontal,
                       children: [
                         RecipeCard(
-                            title: "Veg", image: "assets/images/pic1.jpg"),
+                            title: "Egg", image: "assets/images/pic2.jpg"),
                         RecipeCard(
-                            title: "NOn-Veg", image: "assets/images/pic1.jpg"),
+                            title: "Poha", image: "assets/images/pic3.jpg"),
                         RecipeCard(
-                            title: "Vegan", image: "assets/images/pic1.jpg"),
+                            title: "Rajasthani",
+                            image: "assets/images/pic1.jpg"),
                       ],
                     ),
                   ),
@@ -159,17 +171,15 @@ class _HomeScreenState extends State<HomeScreen> {
           SearchScreen(),
           // RatingReviewScreen(),
 
-          //RegisterScreen(),
+          RegisterScreen(),
           // SearchScreen(),
           //DetailsScreen(),
           //NutritionInfo(),
           // RatingReviewScreen(),
           // FormScreen(),
           // RecipeScreen(),
-          ProfileDetails(),
-          ProfileSetUpScreen(
-            username: "ram",
-          ),
+
+          ProfileDetails()
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
@@ -239,6 +249,45 @@ class _HomeScreenState extends State<HomeScreen> {
 
 class RecipeCard extends StatelessWidget {
   const RecipeCard({
+    Key? key,
+    required this.title,
+    required this.image,
+  }) : super(key: key);
+
+  final String title;
+  final String image;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => RecipeScreen()));
+      },
+      child: Stack(
+        children: [
+          Container(
+            width: 150,
+            height: 200,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8),
+                image: DecorationImage(
+                  fit: BoxFit.cover,
+                  image: AssetImage(
+                    image,
+                  ),
+                )),
+            margin: EdgeInsets.only(right: 5),
+          ),
+          Center(child: Text(title, style: TextStyle(color: Colors.white)))
+        ],
+      ),
+    );
+  }
+}
+
+class PopularCard extends StatelessWidget {
+  const PopularCard({
     Key? key,
     required this.title,
     required this.image,

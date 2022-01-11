@@ -56,17 +56,18 @@ class _ProfileDetailsState extends State<ProfileDetails> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            CircleAvatar(
-              radius: 100,
-              backgroundImage: AssetImage('assets/images/pic1.jpg'),
+            Center(
+              child: CircleAvatar(
+                radius: 100,
+                backgroundImage: AssetImage('assets/images/pic1.jpg'),
+              ),
             ),
             SizedBox(),
-            Text('Bishnu Silwal')
+            Text('Bishnu Silwal'),
+            Text('SingUp'),
           ],
         ),
       ),
-
-      
     );
   }
 }

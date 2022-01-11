@@ -3,6 +3,8 @@ import 'package:recipe_mobile_frontend/widget/colors.dart';
 import 'package:recipe_mobile_frontend/widget/custom_button.dart';
 import 'package:recipe_mobile_frontend/widget/custom_input.dart';
 
+import 'LoginForm.dart';
+
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({Key? key}) : super(key: key);
 
@@ -91,6 +93,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
               textColor: whiteColor,
               buttonColor: primaryColor,
               onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => LoginScreen()));
+
                 if (usernameController.text.isNotEmpty ||
                     emailController.text.isNotEmpty ||
                     password1Controller.text.isNotEmpty ||

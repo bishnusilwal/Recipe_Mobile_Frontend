@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:recipe_mobile_frontend/screens/recipe_form.dart';
 
 import 'package:recipe_mobile_frontend/widget/colors.dart';
 import 'package:recipe_mobile_frontend/widget/custom_button.dart';
@@ -232,7 +233,10 @@ class _ProfileSetUpScreenState extends State<ProfileSetUpScreen> {
                 ),
                 color: Colors.blueAccent,
                 textColor: Colors.white,
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => FormScreen()));
+                },
               ),
             ),
           ],

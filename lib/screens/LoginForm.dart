@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:recipe_mobile_frontend/screens/profile_form.dart';
 import 'package:recipe_mobile_frontend/widget/colors.dart';
 import 'package:recipe_mobile_frontend/widget/custom_button.dart';
 import 'package:recipe_mobile_frontend/widget/custom_input.dart';
@@ -88,22 +89,30 @@ class _LoginScreenState extends State<LoginScreen> {
                           });
                         },
                       ),
-                      Text(
-                        "Show Password",
-                        style: TextStyle(
-                            fontSize: 30.0,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white),
-                      ),
+                      // Text(
+                      //   "Show Password",
+                      //   style: TextStyle(
+                      //       fontSize: 30.0,
+                      //       fontWeight: FontWeight.bold,
+                      //       color: Colors.white),
+                      // ),
                     ],
                   ),
                 ),
-                SizedBox(height: 20.0),
+                SizedBox(height: 10.0),
                 CustomButton(
                   title: "Signin",
                   textColor: whiteColor,
                   buttonColor: primaryColor,
                   onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ProfileSetUpScreen(
+                            username: "ram",
+                          ),
+                        ));
+
                     if (usernameController.text.isNotEmpty ||
                         passwordController.text.isNotEmpty) {
                     } else {
@@ -122,6 +131,13 @@ class _LoginScreenState extends State<LoginScreen> {
                     color: whiteColor,
                   ),
                 ),
+                Text(
+                        "Show Password",
+                        style: TextStyle(
+                            fontSize: 30.0,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white),
+                      ),
               ],
             ),
           ),
