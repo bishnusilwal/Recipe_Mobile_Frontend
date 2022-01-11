@@ -8,8 +8,17 @@ import 'ingredient_screen.dart';
 import 'nutrition_screen.dart';
 //import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
-class DetailsScreen extends StatelessWidget {
-  const DetailsScreen({Key? key}) : super(key: key);
+class DetailsScreen extends StatefulWidget {
+  DetailsScreen({Key? key}) : super(key: key);
+
+  @override
+  State<DetailsScreen> createState() => _DetailsScreenState();
+}
+
+class _DetailsScreenState extends State<DetailsScreen> {
+  bool eachvisible = false;
+
+  List ingredients = ['data', "some", 'data', "some"];
 
   @override
   Widget build(BuildContext context) {
@@ -156,8 +165,9 @@ class DetailsScreen extends StatelessWidget {
               children: [
                 TextButton(
                   onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => Ingredient()));
+                    setState(() {
+                      eachvisible = !eachvisible;
+                    });
                   },
                   child: Text(
                     'Ingredients',
@@ -166,6 +176,20 @@ class DetailsScreen extends StatelessWidget {
                 ),
               ],
             ),
+            Visibility(
+              visible: eachvisible,
+              replacement: Container(),
+              child: Container(
+                width: double.infinity,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    ...ingredients.map((e) => Text(e)),
+                  ],
+                ),
+              ),
+            ),
+
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [

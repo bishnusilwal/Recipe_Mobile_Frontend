@@ -171,9 +171,9 @@ class _HomeScreenState extends State<HomeScreen> {
           SearchScreen(),
           // RatingReviewScreen(),
 
-          RegisterScreen(),
+          // RegisterScreen(),
           // SearchScreen(),
-          //DetailsScreen(),
+          DetailsScreen(),
           //NutritionInfo(),
           // RatingReviewScreen(),
           // FormScreen(),
@@ -262,7 +262,7 @@ class RecipeCard extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => RecipeScreen()));
+            context, MaterialPageRoute(builder: (context) => DetailsScreen()));
       },
       child: Stack(
         children: [
