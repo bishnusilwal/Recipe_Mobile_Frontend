@@ -1,7 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:recipe_mobile_frontend/models/recipe_models.dart';
 import 'package:recipe_mobile_frontend/screens/rating_review_screen.dart';
-
+import 'package:http/http.dart' as http;
 import 'LoginForm.dart';
 import 'direction_screen.dart';
 import 'ingredient_screen.dart';
@@ -9,7 +12,11 @@ import 'nutrition_screen.dart';
 //import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class DetailsScreen extends StatefulWidget {
-  DetailsScreen({Key? key}) : super(key: key);
+  DetailsScreen({
+    Key? key,
+    required this.id,
+  }) : super(key: key);
+  final String id;
 
   @override
   State<DetailsScreen> createState() => _DetailsScreenState();
@@ -20,11 +27,31 @@ class _DetailsScreenState extends State<DetailsScreen> {
 
   List ingredients = ['data', "some", 'data', "some"];
 
+  late final Recipe recipe;
+
+  getRecipes() async {
+    final url = Uri.parse("http://localhost:90/recipe/${widget.id}");
+    final res = await http.get(url);
+    final data = jsonDecode(res.body);
+    final r = Recipe.fromJson(data);
+    setState(() {
+      recipe = r;
+    });
+    return data;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getRecipes();
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
 
     return Scaffold(
+      backgroundColor: Colors.black,
       body: SafeArea(
         child: SingleChildScrollView(
             child: Column(
@@ -68,7 +95,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                       borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(20),
                           topRight: Radius.circular(20)),
-                      color: Colors.white,
+                      color: Colors.black,
                     ),
                   ),
                 ),
@@ -93,7 +120,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                               children: [
                                 Expanded(
                                   child: Text(
-                                    "Russian Mushroom and Potato Soup",
+                                    recipe.name,
                                     maxLines: 2,
                                     overflow: TextOverflow.ellipsis,
                                     style: TextStyle(

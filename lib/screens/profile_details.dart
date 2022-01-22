@@ -15,41 +15,10 @@ class _ProfileDetailsState extends State<ProfileDetails> {
     Size size = MediaQuery.of(context).size;
 
     return Scaffold(
-      //   body: SafeArea(
-      //     child: SingleChildScrollView(
-      //         child: Column(
-      //       children: [
-      //         Stack(
-      //           children: [
-      //             // Container(
-      //             //   height: 300,
-      //             //   width: size.width,
-      //             //   //color: Colors.red,
-      //             //   child: Image(
-      //             //     fit: BoxFit.cover,
-      //             //     image: AssetImage(
-      //             //       "assets/images/pic1.jpg",
-      //             //     ),
-      //             //   ),
-      //             // ),
-      //             CircleAvatar(
-      //               child: CircleAvatar(
-
-      //                 radius: 150,
-      //                  //radius is 50
-      //                 backgroundImage: NetworkImage(
-      //                     'https://cdn.pixabay.com/photo/2015/03/03/20/42/man-657869_1280.jpg'
-      //                     ),
-
-      //               ),
-      //             ),
-      //           ],
-      //         )
-      //       ],
-      //     )),
-      //   ),
+      backgroundColor: Colors.black87,
       appBar: AppBar(
         title: Text('Profile Screen'),
+        backgroundColor: Colors.black,
       ),
       body: Padding(
         padding: const EdgeInsets.all(20),
@@ -62,9 +31,49 @@ class _ProfileDetailsState extends State<ProfileDetails> {
                 backgroundImage: AssetImage('assets/images/pic1.jpg'),
               ),
             ),
-            SizedBox(),
-            Text('Bishnu Silwal'),
-            Text('SingUp'),
+            // Text("Bishnu Silwal"),
+            SizedBox(height: 15),
+            const Text(
+              'Bishnu Silwal',
+              style: TextStyle(color: Colors.white),
+            ),
+            SizedBox(
+              width: 40,
+              height: 30,
+            ),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                RichText(
+                  text: TextSpan(
+                      text: 'Bishnusilwal99@gmail.com\n',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      children: [
+                        TextSpan(
+                            text: '98635352718\n',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            )),
+                        TextSpan(
+                            text: 'Dhadig\n',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            )),
+                        TextSpan(
+                            text: 'My name is bishnu silwal\n',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            )),
+                      ]),
+                ),
+              ],
+            ),
           ],
         ),
       ),

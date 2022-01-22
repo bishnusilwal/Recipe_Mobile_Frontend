@@ -23,18 +23,26 @@ class _LoginScreenState extends State<LoginScreen> {
     Size size = MediaQuery.of(context).size;
 
     return Scaffold(
-      backgroundColor: Colors.black,
-      // appBar: AppBar(
-      //   leading: IconButton(
-      //     icon: Icon(Icons.arrow_back_ios),
-      //     color: blackColor,
-      //     onPressed: () {},
-      //   ),
-      //   backgroundColor: whiteColor,
-      //   elevation: 0,
-      // ),
+      // backgroundColor: Colors.black,
+      appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back_ios),
+          color: whiteColor,
+          onPressed: () {},
+        ),
+        backgroundColor: blackColor,
+        elevation: 0,
+      ),
       body: Stack(
         children: [
+          Container(
+            decoration: new BoxDecoration(
+              image: new DecorationImage(
+                image: new AssetImage("assets/images/pic1.jpg"),
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
           // Container(width: double.infinity, height: double.infinity, child: Image(fit: BoxFit.cover,image: AssetImage("assests/images/background.png",),),),
           SingleChildScrollView(
             padding:
@@ -55,6 +63,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 CustomInputBox(
                   size: size,
                   title: "Username",
+                  
                   hint: "Username",
                   isInvisible: false,
                   icon: Icons.person,
@@ -65,8 +74,17 @@ class _LoginScreenState extends State<LoginScreen> {
                   height: 20.0,
                 ),
                 CustomInputBox(
+                  
+                  
+                  // color: whiteColor,
+
                   size: size,
                   title: "Password",
+
+                  
+
+                
+                  // buttonColor: Colors.red,
                   hint: "Password",
                   isInvisible: isChecked == false ? true : false,
                   icon: Icons.lock,
@@ -99,11 +117,19 @@ class _LoginScreenState extends State<LoginScreen> {
                     ],
                   ),
                 ),
+                // SizedBox(height: 5.0),
+                Text(
+                  "Forgot Password?",
+                  textAlign: TextAlign.end,
+                  style: TextStyle(
+                    color: whiteColor,
+                  ),
+                ),
                 SizedBox(height: 10.0),
                 CustomButton(
                   title: "Signin",
                   textColor: whiteColor,
-                  buttonColor: primaryColor,
+                  buttonColor: Colors.red,
                   onTap: () {
                     Navigator.push(
                         context,
@@ -123,21 +149,41 @@ class _LoginScreenState extends State<LoginScreen> {
                     }
                   },
                 ),
-                SizedBox(height: 20.0),
-                Text(
-                  "Forgot Password?",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: whiteColor,
+
+                SizedBox(width: 100),
+                Center(
+                  child: RichText(
+                    text: TextSpan(
+                      text: "Don't have a",
+                      style: TextStyle(color: Colors.black),
+                      children: const <TextSpan>[
+                        TextSpan(
+                            text: 'account?',
+                            style: TextStyle(color: Colors.blue)),
+                        TextSpan(
+                          text: ' SingUP',
+                          style: TextStyle(
+                              color: Colors.red, fontWeight: FontWeight.bold),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-                Text(
-                        "Show Password",
-                        style: TextStyle(
-                            fontSize: 30.0,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white),
-                      ),
+                )
+                // SizedBox(height: 19.0),
+                // Text(
+                //   "Don't have a account? Sing in",
+                //   textAlign: TextAlign.center,
+                //   style: TextStyle(
+                //     color: whiteColor,
+                //   ),
+                // ),
+                // Text(
+                //   "Show Password",
+                //   style: TextStyle(
+                //       fontSize: 30.0,
+                //       fontWeight: FontWeight.bold,
+                //       color: Colors.white),
+                // ),
               ],
             ),
           ),

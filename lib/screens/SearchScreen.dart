@@ -6,20 +6,22 @@ class SearchScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: Colors.black87,
         appBar: AppBar(
-      title: Row(
-        children: [
-          Expanded(
-              child: TextField(
-                  maxLines: 1,
-                  style: TextStyle(color: Colors.black),
-                  decoration: InputDecoration(
-                    hintText: "Search",
-                    border: InputBorder.none,
-                    hintStyle: TextStyle(color: Colors.white),
-                  )))
-        ],
-      ),
-    ));
+          backgroundColor: Colors.black,
+          title: Row(
+            children: [
+              Expanded(
+                  child: TextField(
+                      maxLines: 1,
+                      style: TextStyle(color: Colors.black),
+                      decoration: InputDecoration(
+                        hintText: "Search",
+                        border: InputBorder.none,
+                        hintStyle: TextStyle(color: Colors.white),
+                      )))
+            ],
+          ),
+        ));
   }
 }

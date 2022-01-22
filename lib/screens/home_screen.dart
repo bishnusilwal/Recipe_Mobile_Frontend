@@ -1,4 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:recipe_mobile_frontend/models/category_models.dart';
+import 'package:recipe_mobile_frontend/models/recipe_models.dart';
 
 import 'package:recipe_mobile_frontend/screens/LoginForm.dart';
 import 'package:recipe_mobile_frontend/screens/RegisterScreen.dart';
@@ -7,7 +11,7 @@ import 'package:recipe_mobile_frontend/screens/profile_form.dart';
 import 'package:recipe_mobile_frontend/screens/detail_screen.dart';
 import 'package:recipe_mobile_frontend/screens/SearchScreen.dart';
 import 'package:recipe_mobile_frontend/screens/veg_screen.dart';
-
+import 'package:http/http.dart' as http;
 import 'ingredient_screen.dart';
 import 'profile_details.dart';
 import 'rating_review_screen.dart';
@@ -31,6 +35,39 @@ class _HomeScreenState extends State<HomeScreen> {
     _controller.jumpToPage(currentIndex);
   }
 
+  List recipes = [];
+  List veg = [];
+  final urlveg = Uri.parse("http://localhost:90/category/");
+  getVeg() async {
+    final res = await http.get(urlveg);
+    final data = jsonDecode(res.body);
+    final hj = data.map((d) => Category.fromJson(d)).toList();
+    print(veg);
+    setState(() {
+      veg = hj;
+    });
+    return hj;
+  }
+
+  final url = Uri.parse("http://localhost:90/recipe/");
+
+  getRecipes() async {
+    final res = await http.get(url);
+    final data = jsonDecode(res.body);
+    final fasd = data.map((d) => Recipe.fromJson(d)).toList();
+    setState(() {
+      recipes = fasd;
+    });
+    return fasd;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getRecipes();
+    getVeg();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,6 +77,7 @@ class _HomeScreenState extends State<HomeScreen> {
         controller: _controller,
         children: [
           Scaffold(
+            backgroundColor: Colors.black87,
             // appBar: AppBar(
             //   title: Icon(Icons.ac_unit_rounded),
             //   backgroundColor: Colors.red,
@@ -62,7 +100,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     children: [
                       Text(
                         "Category Recipes",
-                        style: TextStyle(fontSize: 16, color: Colors.green),
+                        style: TextStyle(fontSize: 16, color: Colors.white),
                       ),
                     ],
                   ),
@@ -75,12 +113,10 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: ListView(
                       scrollDirection: Axis.horizontal,
                       children: [
-                        RecipeCard(
-                            title: "Veg", image: "assets/images/pic1.jpg"),
-                        RecipeCard(
-                            title: "Non-Veg", image: "assets/images/pic2.jpg"),
-                        RecipeCard(
-                            title: "Vegan", image: "assets/images/pic3.jpg"),
+                        ...veg.map((r) => RecipeCard(
+                            // id: r.id,
+                            title: r.name,
+                            image: "assets/images/pic3.jpg")),
                       ],
                     ),
                   ),
@@ -92,7 +128,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     children: [
                       Text(
                         "Popular Recipes",
-                        style: TextStyle(fontSize: 16, color: Colors.green),
+                        style: TextStyle(fontSize: 16, color: Colors.white),
                       ),
                       TextButton(
                           child: Text('View all'),
@@ -100,7 +136,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => RecipeScreen()));
+                                    builder: (context) => RecipeScreen(url: "http://localhost:90/recipe/veg",)));
                           })
                     ],
                   ),
@@ -113,15 +149,17 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: ListView(
                       scrollDirection: Axis.horizontal,
                       children: [
-                        PopularCard(
-                            title: "Aloo Do Pyaza",
-                            image: "assets/images/pic3.jpg"),
-                        PopularCard(
-                            title: "Paneer Masala Fry",
-                            image: "assets/images/pic1.jpg"),
-                        PopularCard(
-                            title: "Keema Naan",
-                            image: "assets/images/pic2.jpg"),
+                        ...recipes.map((r) => PopularCard(
+                            id: r.id,
+                            title: r.name,
+                            image: "assets/images/pic3.jpg"))
+                        // ,
+                        // PopularCard(
+                        //     title: "Paneer Masala Fry",
+                        //     image: "assets/images/pic1.jpg"),
+                        // PopularCard(
+                        //     title: "Keema Naan",
+                        //     image: "assets/images/pic2.jpg"),
                       ],
                     ),
                   ),
@@ -133,7 +171,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     children: [
                       Text(
                         "Recommendation Recipes",
-                        style: TextStyle(fontSize: 16, color: Colors.green),
+                        style: TextStyle(fontSize: 16, color: Colors.white),
                       ),
                       TextButton(
                           child: Text('View all'),
@@ -141,7 +179,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => RecipeScreen()));
+                                    builder: (context) => RecipeScreen(url: "http://localhost:90/",)));
                           })
                     ],
                   ),
@@ -171,9 +209,9 @@ class _HomeScreenState extends State<HomeScreen> {
           SearchScreen(),
           // RatingReviewScreen(),
 
-          // RegisterScreen(),
+          RegisterScreen(),
           // SearchScreen(),
-          DetailsScreen(),
+          // DetailsScreen(),
           //NutritionInfo(),
           // RatingReviewScreen(),
           // FormScreen(),
@@ -183,6 +221,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: Colors.black,
         type: BottomNavigationBarType.fixed,
         selectedFontSize: 0,
         unselectedFontSize: 0,
@@ -227,7 +266,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return GestureDetector(
       onTap: () {
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => RecipeScreen()));
+            context, MaterialPageRoute(builder: (context) => RecipeScreen(url: "")));
       },
       child: Column(
         children: [
@@ -261,8 +300,8 @@ class RecipeCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => DetailsScreen()));
+        // Navigator.push(
+        //     context, MaterialPageRoute(builder: (context) => DetailsScreen()));
       },
       child: Stack(
         children: [
@@ -286,22 +325,33 @@ class RecipeCard extends StatelessWidget {
   }
 }
 
-class PopularCard extends StatelessWidget {
+class PopularCard extends StatefulWidget {
   const PopularCard({
     Key? key,
+    required this.id,
     required this.title,
     required this.image,
   }) : super(key: key);
 
+  final String id;
   final String title;
   final String image;
 
+  @override
+  State<PopularCard> createState() => _PopularCardState();
+}
+
+class _PopularCardState extends State<PopularCard> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => DetailsScreen()));
+            context,
+            MaterialPageRoute(
+                builder: (context) => DetailsScreen(
+                      id: widget.id,
+                    )));
       },
       child: Stack(
         children: [
@@ -313,12 +363,13 @@ class PopularCard extends StatelessWidget {
                 image: DecorationImage(
                   fit: BoxFit.cover,
                   image: AssetImage(
-                    image,
+                    widget.image,
                   ),
                 )),
             margin: EdgeInsets.only(right: 5),
           ),
-          Center(child: Text(title, style: TextStyle(color: Colors.white)))
+          Center(
+              child: Text(widget.title, style: TextStyle(color: Colors.white)))
         ],
       ),
     );

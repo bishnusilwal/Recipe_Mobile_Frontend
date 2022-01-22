@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import 'colors.dart';
 
-
 class CustomInputBox extends StatelessWidget {
   final String? title, hint;
   final String? error;
@@ -48,7 +47,7 @@ class CustomInputBox extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 3.0),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(15.0),
-                color: inputBoxColor,
+                color: Colors.black,
               ),
               child: TextFormField(
                 controller: controller,

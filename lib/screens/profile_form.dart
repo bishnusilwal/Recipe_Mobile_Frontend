@@ -29,11 +29,12 @@ class _ProfileSetUpScreenState extends State<ProfileSetUpScreen> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      //backgroundColor: Colors.black,
+      backgroundColor: Colors.black87,
       appBar: AppBar(
+        backgroundColor: Colors.black,
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios),
-          color: blackColor,
+          color: whiteColor,
           onPressed: () {},
         ),
         centerTitle: true,
@@ -43,7 +44,6 @@ class _ProfileSetUpScreenState extends State<ProfileSetUpScreen> {
             color: blackColor,
           ),
         ),
-        backgroundColor: whiteColor,
         elevation: 0,
       ),
       body: SingleChildScrollView(
@@ -74,6 +74,7 @@ class _ProfileSetUpScreenState extends State<ProfileSetUpScreen> {
                               style: TextStyle(
                                 fontSize: 20.0,
                                 fontWeight: FontWeight.bold,
+                                backgroundColor: Colors.black87,
                               )),
                           SizedBox(
                             height: 20.0,
