@@ -165,6 +165,41 @@ class _FormScreenState extends State<FormScreen> {
                       child: Column(
                         children: [
                           TextFormField(
+                            maxLines: 1,
+                            decoration: const InputDecoration(
+                              hintText: "Recipe name",
+                              border: InputBorder.none,
+                            ),
+                          ),
+                          TextFormField(
+                            maxLines: 1,
+                            decoration: const InputDecoration(
+                              hintText: "Write Preptime",
+                              border: InputBorder.none,
+                            ),
+                          ),
+                          TextFormField(
+                            maxLines: 1,
+                            decoration: const InputDecoration(
+                              hintText: "cooktime",
+                              border: InputBorder.none,
+                            ),
+                          ),
+                          TextFormField(
+                            maxLines: 1,
+                            decoration: const InputDecoration(
+                              hintText: "write totaltime",
+                              border: InputBorder.none,
+                            ),
+                          ),
+                          TextFormField(
+                            maxLines: 1,
+                            decoration: const InputDecoration(
+                              hintText: "servingstime",
+                              border: InputBorder.none,
+                            ),
+                          ),
+                          TextFormField(
                             maxLines: 3,
                             decoration: const InputDecoration(
                               hintText: "Write Ingredients!",
