@@ -13,13 +13,13 @@ class User {
   //final List<Ingredients> ingredients;
 
   User({
-    required this.username,
-    required this.password,
-    required this.fullname,
-    required this.email,
-    required this.phone,
-    required this.location,
-    required this.bio,
+    this.username,
+     this.password,
+     this.fullname,
+     this.email,
+     this.phone,
+     this.location,
+     this.bio,
     // required this.img
   });
 }

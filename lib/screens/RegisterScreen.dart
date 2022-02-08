@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:recipe_mobile_frontend/http/httpuser.dart';
+import 'package:recipe_mobile_frontend/models/user_models.dart';
 import 'package:recipe_mobile_frontend/widget/colors.dart';
 import 'package:recipe_mobile_frontend/widget/custom_button.dart';
 import 'package:recipe_mobile_frontend/widget/custom_input.dart';
@@ -104,10 +106,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   title: "Sign Up",
                   textColor: whiteColor,
                   buttonColor: Colors.red,
-                  onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => LoginScreen()));
-
+                  onTap: () async {
                     if (usernameController.text.isNotEmpty ||
                         emailController.text.isNotEmpty ||
                         password1Controller.text.isNotEmpty ||
@@ -118,7 +117,27 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           content: Text("Password donot match"),
                           backgroundColor: Colors.grey,
                         ));
-                      } else {}
+                      } else {
+                        HttpConnectUser http = HttpConnectUser();
+                        bool isRegister = await http.registerPost(
+                          User(
+                            username: usernameController.text,
+                            password: password1Controller.text,
+                            email: emailController.text,
+                          ),
+                        );
+                        if (isRegister == true) {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => LoginScreen()));
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            content: Text("Registered failed"),
+                            backgroundColor: Colors.grey,
+                          ));
+                        }
+                      }
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                         content: Text("Some error occured please try later"),

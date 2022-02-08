@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:recipe_mobile_frontend/http/httpuser.dart';
+import 'package:recipe_mobile_frontend/models/user_models.dart';
+import 'package:recipe_mobile_frontend/screens/RegisterScreen.dart';
+import 'package:recipe_mobile_frontend/screens/home_screen.dart';
 import 'package:recipe_mobile_frontend/screens/profile_form.dart';
 import 'package:recipe_mobile_frontend/widget/colors.dart';
 import 'package:recipe_mobile_frontend/widget/custom_button.dart';
@@ -63,7 +67,6 @@ class _LoginScreenState extends State<LoginScreen> {
                 CustomInputBox(
                   size: size,
                   title: "Username",
-                  
                   hint: "Username",
                   isInvisible: false,
                   icon: Icons.person,
@@ -74,16 +77,9 @@ class _LoginScreenState extends State<LoginScreen> {
                   height: 20.0,
                 ),
                 CustomInputBox(
-                  
-                  
                   // color: whiteColor,
-
                   size: size,
                   title: "Password",
-
-                  
-
-                
                   // buttonColor: Colors.red,
                   hint: "Password",
                   isInvisible: isChecked == false ? true : false,
@@ -130,17 +126,28 @@ class _LoginScreenState extends State<LoginScreen> {
                   title: "Signin",
                   textColor: whiteColor,
                   buttonColor: Colors.red,
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => ProfileSetUpScreen(
-                            username: "ram",
-                          ),
-                        ));
+                  onTap: () async {
+                    // Navigator.push(
+                    //     context,
+                    //     MaterialPageRoute(
+                    //       builder: (context) => ProfileSetUpScreen(
+                    //         username: "ram",
+                    //       ),
+                    //     ));
 
                     if (usernameController.text.isNotEmpty ||
                         passwordController.text.isNotEmpty) {
+                      HttpConnectUser http = HttpConnectUser();
+                      bool isLoggedOn = await http.login(User(email: usernameController.text, password: passwordController.text));
+                      if(isLoggedOn == true){
+                        Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => HomeScreen()));
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                          content: Text("Login failed"),
+                          backgroundColor: Colors.redAccent,
+                        ));
+                      }
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                         content: Text("Please enter a username and password"),
@@ -168,8 +175,12 @@ class _LoginScreenState extends State<LoginScreen> {
                       ],
                     ),
                   ),
-                )
-                // SizedBox(height: 19.0),
+                ),
+                SizedBox(height: 19.0),
+                ElevatedButton(onPressed: (){
+                  Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => RegisterScreen()));
+                }, child: Text("Register"),),
                 // Text(
                 //   "Don't have a account? Sing in",
                 //   textAlign: TextAlign.center,

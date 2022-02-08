@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: HomeScreen(),
+      home: LoginScreen(),
       themeMode: ThemeMode.dark,
       darkTheme: ThemeData(
           brightness: Brightness.dark, primarySwatch: Colors.deepPurple),
