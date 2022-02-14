@@ -1,44 +1,44 @@
+import 'dart:io';
+
 import 'package:recipe_mobile_frontend/models/Ingredients_models.dart';
 
 class Recipe {
-  final String id;
-  final String name;
-  final String description;
-  // final String coverImage;
-  final String images;
-  // final String preptime;
-  // final String cooktime;
-  // final String totaltime;
-  // final String Servingstime;
-  // final String yield;
-  // final List<Ingredients> ingredients;
+  final String? id;
+  final String? name;
+  final String? description;
+
+  final String? preptime;
+  final String? cooktime;
+  final String? totaltime;
+  final String? category;
+  final String? ingredients;
+  final String? direction;
+  final String? rimg;
+  final File? image;
 
   Recipe({
-    required this.id,
-    required this.name,
-    required this.description,
-    // required this.coverImage,
-    required this.images,
-    // required this.preptime,
-    // required this.cooktime,
-    // required this.totaltime,
-    // required this.Servingstime,
-    // required this.yield,
-    // required this.ingredients,
+    this.id,
+    this.name,
+    this.description,
+    this.preptime,
+    this.cooktime,
+    this.totaltime,
+    this.category,
+    this.ingredients,
+    this.direction,
+    this.rimg,
+    this.image,
   });
 
   factory Recipe.fromJson(Map<String, dynamic> json) {
     return Recipe(
-        name: json["name"],
-        id: json["_id"],
-        description: json["description"],
-        // coverImage: json["coverImage"],
-        images: (json["img"] != null) ? json["img"] : "");
-    // preptime: json["pretime"],
-    // cooktime: json["cooktime"],
-    // totaltime: json["totaltime"],
-    // Servingstime: json["Servingstime"],
-    // yield: json["yield"]);
-    // ingredients: json["ingredients"]);
+      name: json["name"],
+      id: json["_id"],
+      description: json["description"],
+      rimg: (json["img"] != null) ? json["img"] : "",
+      preptime: json["pretime"],
+      cooktime: json["cooktime"],
+      totaltime: json["totaltime"],
+    );
   }
 }

@@ -7,6 +7,7 @@ import 'package:recipe_mobile_frontend/screens/profile_form.dart';
 import 'package:recipe_mobile_frontend/widget/colors.dart';
 import 'package:recipe_mobile_frontend/widget/custom_button.dart';
 import 'package:recipe_mobile_frontend/widget/custom_input.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({
@@ -21,6 +22,21 @@ class _LoginScreenState extends State<LoginScreen> {
   final usernameController = new TextEditingController();
   final passwordController = new TextEditingController();
   bool isChecked = false;
+  SharedPreferences? localStorage;
+
+  @override
+  void initState() {
+    super.initState();
+    init();
+  }
+
+  void init() async {
+    localStorage = await SharedPreferences.getInstance();
+  }
+
+  void save(token) {
+    localStorage!.setString('token', token);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -138,10 +154,21 @@ class _LoginScreenState extends State<LoginScreen> {
                     if (usernameController.text.isNotEmpty ||
                         passwordController.text.isNotEmpty) {
                       HttpConnectUser http = HttpConnectUser();
-                      bool isLoggedOn = await http.login(User(email: usernameController.text, password: passwordController.text));
-                      if(isLoggedOn == true){
-                        Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => HomeScreen()));
+                      User user = await http.login(User(
+                          username: usernameController.text,
+                          password: passwordController.text));
+                      print(user.token);
+                      if (user.message == "success") {
+                        save(user.token);
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => HomeScreen()));
+                      } else if (user.message == "invalid") {
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                          content: Text("Login invalid"),
+                          backgroundColor: Colors.redAccent,
+                        ));
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                           content: Text("Login failed"),
@@ -177,10 +204,15 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
                 SizedBox(height: 19.0),
-                ElevatedButton(onPressed: (){
-                  Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => RegisterScreen()));
-                }, child: Text("Register"),),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => RegisterScreen()));
+                  },
+                  child: Text("Register"),
+                ),
                 // Text(
                 //   "Don't have a account? Sing in",
                 //   textAlign: TextAlign.center,

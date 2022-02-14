@@ -2,13 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:recipe_mobile_frontend/screens/LoginForm.dart';
 import 'package:recipe_mobile_frontend/screens/RegisterScreen.dart';
 import 'package:recipe_mobile_frontend/screens/home_screen.dart';
+import 'package:recipe_mobile_frontend/screens/recipe_form.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
+  const MyApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -16,7 +18,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: LoginScreen(),
+      home: FormScreen(),
       themeMode: ThemeMode.dark,
       darkTheme: ThemeData(
           brightness: Brightness.dark, primarySwatch: Colors.deepPurple),

@@ -180,15 +180,15 @@ class _ProfileSetUpScreenState extends State<ProfileSetUpScreen> {
             SizedBox(
               height: 20.0,
             ),
-            CustomInputBox(
-              size: size,
-              title: "email",
-              hint: "email",
-              isInvisible: false,
-              icon: Icons.mail,
-              suffixIcon: null,
-              controller: emailController,
-            ),
+            // CustomInputBox(
+            //   size: size,
+            //   title: "email",
+            //   hint: "email",
+            //   isInvisible: false,
+            //   icon: Icons.mail,
+            //   suffixIcon: null,
+            //   controller: emailController,
+            // ),
             SizedBox(
               height: 20.0,
             ),
@@ -216,6 +216,8 @@ class _ProfileSetUpScreenState extends State<ProfileSetUpScreen> {
             SizedBox(
               height: 40.0,
             ),
+
+        
             CustomInputBox(
               size: size,
               title: "Bio",

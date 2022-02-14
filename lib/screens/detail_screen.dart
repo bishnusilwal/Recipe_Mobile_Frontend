@@ -120,7 +120,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                               children: [
                                 Expanded(
                                   child: Text(
-                                    recipe.name,
+                                    recipe.name!,
                                     maxLines: 2,
                                     overflow: TextOverflow.ellipsis,
                                     style: TextStyle(
