@@ -159,7 +159,6 @@ class _LoginScreenState extends State<LoginScreen> {
                           password: passwordController.text));
                       print(user.token);
                       if (user.message == "success") {
-                        save(user.token);
                         Navigator.push(
                             context,
                             MaterialPageRoute(

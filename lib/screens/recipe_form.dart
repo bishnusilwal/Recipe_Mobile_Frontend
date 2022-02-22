@@ -37,22 +37,6 @@ class _FormScreenState extends State<FormScreen> {
     'Non-veg',
     'Vegan',
   ];
-  SharedPreferences? localStorage;
-
-  String token = '';
-
-  void init() async {
-    localStorage = await SharedPreferences.getInstance();
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    init();
-    setState(() {
-      token = localStorage!.getString('token')!;
-    });
-  }
 
   final ImagePicker _imagePicker = ImagePicker();
 
@@ -61,6 +45,7 @@ class _FormScreenState extends State<FormScreen> {
     setState(() {
       _pickedImage = File(_pickImage!.path);
     });
+    print(_pickedImage!.path);
   }
 
   @override
@@ -222,6 +207,14 @@ class _FormScreenState extends State<FormScreen> {
                           ),
                           TextFormField(
                             maxLines: 1,
+                            controller: pretimeController,
+                            decoration: const InputDecoration(
+                              hintText: "Pretime",
+                              border: InputBorder.none,
+                            ),
+                          ),
+                          TextFormField(
+                            maxLines: 1,
                             controller: cooktimeController,
                             decoration: const InputDecoration(
                               hintText: "Write CookTime",
@@ -276,13 +269,13 @@ class _FormScreenState extends State<FormScreen> {
                           ),
                           Container(
                             margin: EdgeInsets.all(25),
-                            child: FlatButton(
+                            child: ElevatedButton(
                                 child: Text(
                                   'Submit',
                                   style: TextStyle(fontSize: 20.0),
                                 ),
-                                color: Colors.blueAccent,
-                                textColor: Colors.white,
+                                // color: Colors.blueAccent,
+                                // textColor: Colors.white,
                                 onPressed: () async {
                                   if (nameController.text.isNotEmpty ||
                                       discriptionController.text.isNotEmpty ||
@@ -293,20 +286,17 @@ class _FormScreenState extends State<FormScreen> {
                                       ingredientsController.text.isNotEmpty ||
                                       rimgController.text.isNotEmpty) {
                                     HttpRecipe http = HttpRecipe();
-                                    bool isRecipe = await http.addRecipe(
-                                        Recipe(
-                                          name: nameController.text,
-                                          description: directionController.text,
-                                          preptime: pretimeController.text,
-                                          cooktime: cooktimeController.text,
-                                          totaltime: totaltimeController.text,
-                                          category: categoryController.text,
-                                          ingredients:
-                                              ingredientsController.text,
-                                          direction: directionController.text,
-                                          // rimg: _pickedImage!.path,
-                                        ),
-                                        token);
+                                    bool isRecipe = await http.addRecipe(Recipe(
+                                      name: nameController.text,
+                                      description: directionController.text,
+                                      preptime: pretimeController.text,
+                                      cooktime: cooktimeController.text,
+                                      totaltime: totaltimeController.text,
+                                      category: categoryController.text,
+                                      ingredients: ingredientsController.text,
+                                      direction: directionController.text,
+                                      image: _pickedImage,
+                                    ));
 
                                     if (isRecipe == true) {
                                       // Navigator.push(

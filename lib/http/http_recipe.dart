@@ -1,13 +1,20 @@
 import 'dart:convert';
-
 import 'package:dio/dio.dart';
+import 'package:hive/hive.dart';
 import 'package:recipe_mobile_frontend/models/category_models.dart';
 import 'package:recipe_mobile_frontend/models/recipe_models.dart';
 import 'package:http/http.dart' as http;
 
 class HttpRecipe {
   String baseurl =
-      'http://e37a-2400-1a00-b050-166a-b14a-645e-349f-310e.ngrok.io/';
+      'http://749e-2400-1a00-b050-296f-35a8-83ab-88d0-77d0.ngrok.io/';
+
+  Future getToken() async {
+    var box = await Hive.openBox('token');
+    var data = box.getAt(0);
+    print("get token: " + data.token.toString());
+    return data.token;
+  }
 
   Future<List> getRecipe() async {
     try {
@@ -26,31 +33,78 @@ class HttpRecipe {
     }
   }
 
-  Future<bool> addRecipe(Recipe recipe, String? token) async {
-    FormData userMap = FormData.fromMap({
-      "name": recipe.name,
-      "discription": recipe.description,
-      "pretime": recipe.preptime,
-      "cooktime": recipe.cooktime,
-      "totaltime": recipe.totaltime,
-      "category": recipe.category,
-      "ingredients": recipe.ingredients,
-      "direction": recipe.direction,
-      "recipe_image":
-          await MultipartFile.fromFile(recipe.rimg!, filename: recipe.name),
-    });
+  Future<bool> addRecipe(Recipe recipe) async {
+    print(recipe.image!.path);
+    Map<String, String> data = {
+      "name": recipe.name ?? "",
+      "discription": recipe.description ?? "",
+      "pretime": recipe.preptime ?? "",
+      "cooktime": recipe.cooktime ?? "",
+      "totaltime": recipe.totaltime ?? "",
+      "category": recipe.category ?? "",
+      "ingredients": recipe.ingredients ?? "",
+      "direction": recipe.direction ?? "",
+      "filename": "${recipe.name}_image"
+    };
 
-    Dio dio = Dio();
+    var box = await Hive.openBox('token');
+    var token = box.getAt(0).token;
+    Map<String, String> headers = {
+      'X-Requested-With': 'XMLHttpRequest',
+      'authorization': 'Bearer $token',
+      'Content-Type': 'multipart/form-data;application/json;charset=UTF-8',
+    };
+
+    var request = http.MultipartRequest(
+      'POST',
+      Uri.parse(baseurl + 'recipe/'),
+    );
+    request.fields.addAll(data);
+    request.headers.addAll(headers);
+    var multipartFile = await http.MultipartFile.fromPath(
+        'recipe_image', recipe.image!.path,
+        filename: "${recipe.name}_image"); //returns a Future<MultipartFile>
+    request.persistentConnection = false;
+    request.files.add(multipartFile);
+
+    // var userMap = FormData.fromMap({
+    //   "name": recipe.name,
+    //   "discription": recipe.description,
+    //   "pretime": recipe.preptime,
+    //   "cooktime": recipe.cooktime,
+    //   "totaltime": recipe.totaltime,
+    //   "category": recipe.category,
+    //   "ingredients": recipe.ingredients,
+    //   "direction": recipe.direction,
+    //   "filename": "${recipe.name}_image",
+    //   "recipe_image": await MultipartFile.fromFile(recipe.image!.path,
+    //       filename: "${recipe.name}_image"),
+    // });
+
+    // var box = await Hive.openBox('token');
+    // var token = box.getAt(0).token;
+
+    // Dio dio = Dio(BaseOptions(headers: {
+    //   "Authorization": "Bearer $token",
+    //   "content-type": "multipart/form-data"
+    // }));
     try {
-      var res = await dio.post(baseurl + 'recipe/', data: userMap);
-      if (res.statusCode == 200) {
-        print(res);
+      http.StreamedResponse response = await request.send();
+      // final respStr = await response.stream.bytesToString();
+      // var jsonData = jsonDecode(respStr);
+      // var res = await dio.post(baseurl + 'recipe/', data: userMap);
+      if (response.statusCode == 200) {
+        // print(userMap.fields);
+        // print(userMap.files.single);
+        print(response.stream);
         return true;
       }
+      print("object");
       return false;
     } catch (e) {
       return Future.error(e);
     }
+    return false;
   }
 
   Future<List> getCategory() async {

@@ -20,10 +20,19 @@ class _ProfileSetUpScreenState extends State<ProfileSetUpScreen> {
 
   final _imagePicker = ImagePicker();
   final fullnameController = new TextEditingController();
-  final emailController = new TextEditingController();
+  // final emailController = new TextEditingController();
   final addressController = new TextEditingController();
   final phoneController = new TextEditingController();
   final bioController = new TextEditingController();
+
+
+
+  // Future pickPhoto(ImageSource source) async {
+  //   final _pickImage = await _imagePicker.pickImage(source: source);
+  //   setState(() {
+  //     _pickedImage = File(_pickImage!.path);
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -180,15 +189,7 @@ class _ProfileSetUpScreenState extends State<ProfileSetUpScreen> {
             SizedBox(
               height: 20.0,
             ),
-            // CustomInputBox(
-            //   size: size,
-            //   title: "email",
-            //   hint: "email",
-            //   isInvisible: false,
-            //   icon: Icons.mail,
-            //   suffixIcon: null,
-            //   controller: emailController,
-            // ),
+          
             SizedBox(
               height: 20.0,
             ),
@@ -219,6 +220,7 @@ class _ProfileSetUpScreenState extends State<ProfileSetUpScreen> {
 
         
             CustomInputBox(
+              
               size: size,
               title: "Bio",
               hint: "bio",
@@ -226,6 +228,7 @@ class _ProfileSetUpScreenState extends State<ProfileSetUpScreen> {
               icon: Icons.work,
               suffixIcon: null,
               controller: bioController,
+              
             ),
             Container(
               margin: EdgeInsets.all(25),

@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:image_picker/image_picker.dart';
 import 'package:recipe_mobile_frontend/models/Ingredients_models.dart';
 
 class Recipe {

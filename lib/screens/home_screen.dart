@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:recipe_mobile_frontend/http/http_recipe.dart';
+import 'package:recipe_mobile_frontend/http/httpuser.dart';
 import 'package:recipe_mobile_frontend/models/category_models.dart';
 import 'package:recipe_mobile_frontend/models/recipe_models.dart';
 
@@ -13,6 +14,8 @@ import 'package:recipe_mobile_frontend/screens/profile_form.dart';
 import 'package:recipe_mobile_frontend/screens/detail_screen.dart';
 import 'package:recipe_mobile_frontend/screens/SearchScreen.dart';
 import 'package:recipe_mobile_frontend/screens/veg_screen.dart';
+import 'package:recipe_mobile_frontend/screens/profile_form.dart';
+
 import 'package:http/http.dart' as http;
 import 'ingredient_screen.dart';
 import 'profile_details.dart';
@@ -40,16 +43,30 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // body: PageView(
-      //   onPageChanged: (index){},
-      //   controller: controller,
-      //   children: <Widget>[
-      //     HomePage(),
-      //     Container(),
-      //     RegisterScreen(),
-      body: FormScreen(),
-      //   ],
-      // ),
+      body: PageView(
+        onPageChanged: (index) {},
+        controller: controller,
+        children: <Widget>[
+          HomePage(),
+          Container(
+            child: Center(
+              child: ElevatedButton(
+                onPressed: () async {
+                  HttpConnectUser http = HttpConnectUser();
+                  await http.clear();
+                },
+                child: Text("Logout"),
+              ),
+            ),
+          ),
+          LoginScreen(),
+          FormScreen(),
+          // ProfileSetUpScreen(
+          //   username: "ram",
+          // ),
+          // ProfileDetails(),
+        ],
+      ),
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Colors.black,
         type: BottomNavigationBarType.fixed,

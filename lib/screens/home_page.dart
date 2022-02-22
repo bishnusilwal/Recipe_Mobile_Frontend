@@ -38,6 +38,12 @@ class _HomePageState extends State<HomePage> {
     getVeg();
   }
 
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+  }
+
   // ScrollController? controller;
   @override
   Widget build(BuildContext context) {
@@ -120,7 +126,9 @@ class _HomePageState extends State<HomePage> {
                 scrollDirection: Axis.horizontal,
                 children: [
                   ...recipes.map((r) => PopularCard(
-                      id: r.id, title: r.name, image: "assets/images/pic3.jpg"))
+                      id: r.id,
+                      title: r.name ?? "",
+                      image: "assets/images/pic3.jpg"))
                   // ,
                   // PopularCard(
                   //     title: "Paneer Masala Fry",
