@@ -60,10 +60,10 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
           LoginScreen(),
-          FormScreen(),
-          // ProfileSetUpScreen(
-          //   username: "ram",
-          // ),
+          // FormScreen(),
+          ProfileSetUpScreen(
+            username: "ram",
+          ),
           // ProfileDetails(),
         ],
       ),

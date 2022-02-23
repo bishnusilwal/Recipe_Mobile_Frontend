@@ -1,5 +1,6 @@
 import 'package:recipe_mobile_frontend/models/user_models.dart';
-
+import 'package:image_picker/image_picker.dart';
+import 'dart:io';
 class User {
   final String? username;
   final String? password;
@@ -11,7 +12,8 @@ class User {
   final String? bio;
   final String? token;
   final String? message;
-  final String? rimg;
+    final String? uimg;
+  final File? image;
   // final String img;
   //final List<Ingredients> ingredients;
 
@@ -25,7 +27,8 @@ class User {
       this.bio,
       this.token,
       this.message,
-      this.rimg
+      this.uimg,
+      this.image
 
       // required this.img
       });

@@ -1,10 +1,12 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:recipe_mobile_frontend/http/httpuser.dart';
+import 'package:recipe_mobile_frontend/models/user_models.dart';
 import 'package:recipe_mobile_frontend/screens/recipe_form.dart';
-
 import 'package:recipe_mobile_frontend/widget/colors.dart';
 import 'package:recipe_mobile_frontend/widget/custom_button.dart';
 import 'package:recipe_mobile_frontend/widget/custom_input.dart';
+import 'package:image_picker/image_picker.dart';
 
 class ProfileSetUpScreen extends StatefulWidget {
   final String username;
@@ -16,23 +18,23 @@ class ProfileSetUpScreen extends StatefulWidget {
 }
 
 class _ProfileSetUpScreenState extends State<ProfileSetUpScreen> {
-  File? _pickedImage;
-
-  final _imagePicker = ImagePicker();
+  // final _imagePicker = ImagePicker();
   final fullnameController = new TextEditingController();
-  // final emailController = new TextEditingController();
   final addressController = new TextEditingController();
   final phoneController = new TextEditingController();
   final bioController = new TextEditingController();
+  final uimgController = new TextEditingController();
+  File? _pickedImage;
 
+  final ImagePicker _imagePicker = ImagePicker();
 
-
-  // Future pickPhoto(ImageSource source) async {
-  //   final _pickImage = await _imagePicker.pickImage(source: source);
-  //   setState(() {
-  //     _pickedImage = File(_pickImage!.path);
-  //   });
-  // }
+  Future pickPhoto(ImageSource source) async {
+    final _pickImage = await _imagePicker.pickImage(source: source);
+    setState(() {
+      _pickedImage = File(_pickImage!.path);
+    });
+    print(_pickedImage!.path);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -122,7 +124,7 @@ class _ProfileSetUpScreenState extends State<ProfileSetUpScreen> {
                                   children: [
                                     IconButton(
                                       onPressed: () {
-                                        // pickPhoto(ImageSource.gallery);
+                                        pickPhoto(ImageSource.gallery);
                                       },
                                       icon: Icon(
                                         Icons.photo_album_outlined,
@@ -189,7 +191,6 @@ class _ProfileSetUpScreenState extends State<ProfileSetUpScreen> {
             SizedBox(
               height: 20.0,
             ),
-          
             SizedBox(
               height: 20.0,
             ),
@@ -217,10 +218,7 @@ class _ProfileSetUpScreenState extends State<ProfileSetUpScreen> {
             SizedBox(
               height: 40.0,
             ),
-
-        
             CustomInputBox(
-              
               size: size,
               title: "Bio",
               hint: "bio",
@@ -228,7 +226,6 @@ class _ProfileSetUpScreenState extends State<ProfileSetUpScreen> {
               icon: Icons.work,
               suffixIcon: null,
               controller: bioController,
-              
             ),
             Container(
               margin: EdgeInsets.all(25),
@@ -239,9 +236,26 @@ class _ProfileSetUpScreenState extends State<ProfileSetUpScreen> {
                 ),
                 color: Colors.blueAccent,
                 textColor: Colors.white,
-                onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => FormScreen()));
+                onPressed: () async {
+                  if (fullnameController.text.isNotEmpty ||
+                      addressController.text.isNotEmpty ||
+                      phoneController.text.isNotEmpty ||
+                      bioController.text.isNotEmpty ||
+                      uimgController.text.isNotEmpty) {
+                    HttpConnectUser http = HttpConnectUser();
+                    bool isUser = await http.profilePost(User(
+                      fullname: fullnameController.text,
+                      location: addressController.text,
+                      phone: phoneController.text,
+                      bio: bioController.text,
+                      image: _pickedImage,
+                    ));
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                      content: Text("Add user failed"),
+                      backgroundColor: Colors.grey,
+                    ));
+                  }
                 },
               ),
             ),
@@ -251,5 +265,3 @@ class _ProfileSetUpScreenState extends State<ProfileSetUpScreen> {
     );
   }
 }
-
-class ImagePicker {}

@@ -7,7 +7,7 @@ import 'package:http/http.dart' as http;
 
 class HttpRecipe {
   String baseurl =
-      'http://749e-2400-1a00-b050-296f-35a8-83ab-88d0-77d0.ngrok.io/';
+      'http://f9a9-2400-1a00-b050-78a2-1af-de13-7312-aa3f.ngrok.io/';
 
   Future getToken() async {
     var box = await Hive.openBox('token');
@@ -66,36 +66,10 @@ class HttpRecipe {
         filename: "${recipe.name}_image"); //returns a Future<MultipartFile>
     request.persistentConnection = false;
     request.files.add(multipartFile);
-
-    // var userMap = FormData.fromMap({
-    //   "name": recipe.name,
-    //   "discription": recipe.description,
-    //   "pretime": recipe.preptime,
-    //   "cooktime": recipe.cooktime,
-    //   "totaltime": recipe.totaltime,
-    //   "category": recipe.category,
-    //   "ingredients": recipe.ingredients,
-    //   "direction": recipe.direction,
-    //   "filename": "${recipe.name}_image",
-    //   "recipe_image": await MultipartFile.fromFile(recipe.image!.path,
-    //       filename: "${recipe.name}_image"),
-    // });
-
-    // var box = await Hive.openBox('token');
-    // var token = box.getAt(0).token;
-
-    // Dio dio = Dio(BaseOptions(headers: {
-    //   "Authorization": "Bearer $token",
-    //   "content-type": "multipart/form-data"
-    // }));
     try {
       http.StreamedResponse response = await request.send();
-      // final respStr = await response.stream.bytesToString();
-      // var jsonData = jsonDecode(respStr);
-      // var res = await dio.post(baseurl + 'recipe/', data: userMap);
+ 
       if (response.statusCode == 200) {
-        // print(userMap.fields);
-        // print(userMap.files.single);
         print(response.stream);
         return true;
       }

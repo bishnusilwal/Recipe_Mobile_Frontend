@@ -1,15 +1,13 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
-
-import 'package:http/http.dart';
+import 'package:http/http.dart' as http;
 import 'package:recipe_mobile_frontend/models/auth_model.dart';
 import 'package:recipe_mobile_frontend/models/user_models.dart';
 
 class HttpConnectUser {
   String baseurl =
-      'http://749e-2400-1a00-b050-296f-35a8-83ab-88d0-77d0.ngrok.io/';
+      'http://f9a9-2400-1a00-b050-78a2-1af-de13-7312-aa3f.ngrok.io/';
 
   Future<bool> registerPost(User user) async {
     Map<String, dynamic> userMap = {
@@ -24,7 +22,7 @@ class HttpConnectUser {
 
     try {
       final response =
-          await post(Uri.parse(baseurl + 'user/register'), body: userMap);
+          await http.post(Uri.parse(baseurl + 'user/register'), body: userMap);
       if (response.statusCode == 200) {
         return true;
       }
@@ -55,7 +53,7 @@ class HttpConnectUser {
 
     try {
       final response =
-          await post(Uri.parse(baseurl + 'user/login'), body: userMap);
+          await http.post(Uri.parse(baseurl + 'user/login'), body: userMap);
       if (response.statusCode == 200) {
         var data = jsonDecode(response.body);
         User udata = User.fromJson(data);
@@ -70,26 +68,60 @@ class HttpConnectUser {
   }
 
   Future<bool> profilePost(User user) async {
-    Map<String, dynamic> userMap = {
-      "fullname": user.fullname,
-      "phone": user.phone,
-      // "fullname": user.fullname,
-      "location": user.location,
-      // "phone": user.phone,
-      // "location": user.location,
-      "bio": user.bio,
-      "rimg": user.rimg,
+    Map<String, String> data = {
+      "fullname": user.fullname ?? "",
+      "phone": user.phone ?? "",
+      "location": user.location ?? "",
+      "bio": user.bio ?? "",
+      // "rimg": user.rimg,
+      "filename": "${user.fullname}_image"
     };
 
+    var box = await Hive.openBox('token');
+    print("hellslf");
+    var token = box.getAt(0).token;
+    print("somes");
+    Map<String, String> headers = {
+      'X-Requested-With': 'XMLHttpRequest',
+      'authorization': 'Bearer $token',
+      'Content-Type': 'multipart/form-data;application/json;charset=UTF-8',
+    };
+
+    var request = http.MultipartRequest(
+      'PUT',
+      Uri.parse(baseurl + 'user/'),
+    );
+    request.fields.addAll(data);
+    request.headers.addAll(headers);
+    var multipartFile = await http.MultipartFile.fromPath(
+        'user_image', user.image!.path,
+        filename: "${user.fullname}_image"); //returns a Future<MultipartFile>
+    request.persistentConnection = false;
+    request.files.add(multipartFile);
+    print("hello");
     try {
-      final response =
-          await post(Uri.parse(baseurl + 'user/register'), body: userMap);
+      http.StreamedResponse response = await request.send();
+
       if (response.statusCode == 200) {
+        print(response.stream);
         return true;
       }
+      print("object");
       return false;
     } catch (e) {
       return Future.error(e);
     }
+    return false;
+
+    // try {
+    //   final response =
+    //       await post(Uri.parse(baseurl + 'user/register'), body: userMap);
+    //   if (response.statusCode == 200) {
+    //     return true;
+    //   }
+    //   return false;
+    // } catch (e) {
+    //   return Future.error(e);
+    // }
   }
 }
