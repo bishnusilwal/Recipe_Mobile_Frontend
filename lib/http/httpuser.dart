@@ -7,7 +7,7 @@ import 'package:recipe_mobile_frontend/models/user_models.dart';
 
 class HttpConnectUser {
   String baseurl =
-      'http://f9a9-2400-1a00-b050-78a2-1af-de13-7312-aa3f.ngrok.io/';
+      'http://fdb4-2400-1a00-b050-78a2-4d7b-ae95-9a75-b37b.ngrok.io/';
 
   Future<bool> registerPost(User user) async {
     Map<String, dynamic> userMap = {
@@ -54,6 +54,7 @@ class HttpConnectUser {
     try {
       final response =
           await http.post(Uri.parse(baseurl + 'user/login'), body: userMap);
+      print(response);
       if (response.statusCode == 200) {
         var data = jsonDecode(response.body);
         User udata = User.fromJson(data);
@@ -123,5 +124,23 @@ class HttpConnectUser {
     // } catch (e) {
     //   return Future.error(e);
     // }
+  }
+
+  Future<User> getUser() async {
+    var box = await Hive.openBox('token');
+    var token = box.getAt(0).token;
+    final response =
+        await http.get(Uri.parse(baseurl + "user/profile/"), headers: {
+      'Authorization': 'Bearer ' + token,
+    });
+    if (response.statusCode == 200) {
+      print(token);
+      print(response.body);
+      User a = User.fromProfileJson(jsonDecode(response.body));
+
+      return a;
+    } else {
+      throw Exception('Failed to load students');
+    }
   }
 }

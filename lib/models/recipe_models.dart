@@ -40,6 +40,7 @@ class Recipe {
       preptime: json["pretime"],
       cooktime: json["cooktime"],
       totaltime: json["totaltime"],
+      category: json['category'],
     );
   }
 }

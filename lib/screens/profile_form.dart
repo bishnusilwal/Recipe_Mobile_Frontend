@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:recipe_mobile_frontend/http/httpuser.dart';
 import 'package:recipe_mobile_frontend/models/user_models.dart';
+import 'package:recipe_mobile_frontend/screens/profile_details.dart';
 import 'package:recipe_mobile_frontend/screens/recipe_form.dart';
 import 'package:recipe_mobile_frontend/widget/colors.dart';
 import 'package:recipe_mobile_frontend/widget/custom_button.dart';
@@ -258,6 +259,14 @@ class _ProfileSetUpScreenState extends State<ProfileSetUpScreen> {
                   }
                 },
               ),
+            ),
+            SizedBox(height: 19.0),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => ProfileDetails()));
+              },
+              child: Text("view user"),
             ),
           ],
         ),
