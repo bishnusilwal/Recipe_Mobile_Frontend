@@ -1,15 +1,22 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:recipe_mobile_frontend/http/http_recipe.dart';
+import 'package:recipe_mobile_frontend/models/Ingredients_models.dart';
+import 'package:recipe_mobile_frontend/models/direction_models.dart';
 import 'package:recipe_mobile_frontend/models/recipe_models.dart';
 import 'package:recipe_mobile_frontend/widget/colors.dart';
 
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
 
 class UpdateScreen extends StatefulWidget {
-  const UpdateScreen({Key? key, required this.id,}) : super(key: key);
+  const UpdateScreen({
+    Key? key,
+    required this.id,
+  }) : super(key: key);
   // String dropdownValue = 'Veg';
   final String id;
 
@@ -32,21 +39,59 @@ class _UpdateScreenState extends State<UpdateScreen> {
 
   String dropdownvalue = 'Veg';
 
-  late Recipe recipe;
-  HttpRecipe httpRecipe = HttpRecipe();
+  // late Recipe recipe;
+  // HttpRecipe httpRecipe = HttpRecipe();
 
-  Future<Recipe> getDetail() async {
-    Recipe myrecipe = await httpRecipe.getRecipeById(widget.id);
+  // Future<Recipe> getDetail() async {
+  //   Recipe myrecipe = await httpRecipe.getRecipeById(widget.id);
+  //   setState(() {
+  //     recipe = myrecipe;
+  //   });
+  //   return myrecipe;
+  // }
+
+  // @override
+  // void initState() {
+  //   getDetail();
+  //   super.initState();
+  // }
+
+  Recipe recipe = Recipe();
+  Direction direction = Direction();
+  Ingredients ingredients = Ingredients();
+
+  getRecipes() async {
+    final url = Uri.parse(
+        "http://8900-2400-1a00-b050-78a2-85b1-c944-5f1d-c30e.ngrok.io/recipe/one/" +
+            widget.id);
+
+    final res = await http.get(url);
+    print(res.body);
+    final data = jsonDecode(res.body);
+    final r = Recipe.fromJson((data)['recipe']);
+    final d = Direction.fromJson((data)['direction']);
+    final i = Ingredients.fromJson((data)['ingredients']);
+
     setState(() {
-      recipe = myrecipe;
+      recipe = r;
+      direction = d;
+      ingredients = i;
     });
-    return myrecipe;
+    print(data);
+    return data;
   }
 
   @override
   void initState() {
-    getDetail();
+    getRecipes();
+
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
   }
 
   // List of items in our dropdown menu
@@ -210,56 +255,56 @@ class _UpdateScreenState extends State<UpdateScreen> {
                           TextFormField(
                             maxLines: 1,
                             controller: nameController,
-                            decoration: const InputDecoration(
-                              hintText: "Recipe name",
+                            decoration: InputDecoration(
+                              hintText: "${recipe.name}",
                               border: InputBorder.none,
                             ),
                           ),
                           TextFormField(
                             maxLines: 1,
                             controller: discriptionController,
-                            decoration: const InputDecoration(
-                              hintText: "Write Discription",
+                            decoration: InputDecoration(
+                              hintText: "${recipe.description}",
                               border: InputBorder.none,
                             ),
                           ),
                           TextFormField(
                             maxLines: 1,
                             controller: pretimeController,
-                            decoration: const InputDecoration(
-                              hintText: "Pretime",
+                            decoration: InputDecoration(
+                              hintText: "${recipe.preptime}",
                               border: InputBorder.none,
                             ),
                           ),
                           TextFormField(
                             maxLines: 1,
                             controller: cooktimeController,
-                            decoration: const InputDecoration(
-                              hintText: "Write CookTime",
+                            decoration: InputDecoration(
+                              hintText: "${recipe.cooktime}",
                               border: InputBorder.none,
                             ),
                           ),
                           TextFormField(
                             maxLines: 1,
                             controller: totaltimeController,
-                            decoration: const InputDecoration(
-                              hintText: "Write TotalTime",
+                            decoration: InputDecoration(
+                              hintText: "${recipe.totaltime}",
                               border: InputBorder.none,
                             ),
                           ),
                           TextFormField(
                             maxLines: 1,
                             controller: ingredientsController,
-                            decoration: const InputDecoration(
-                              hintText: "Write Ingredients",
+                            decoration: InputDecoration(
+                              hintText: "${ingredients.IngredientsName}",
                               border: InputBorder.none,
                             ),
                           ),
                           TextFormField(
                             maxLines: 3,
                             controller: directionController,
-                            decoration: const InputDecoration(
-                              hintText: "Write Direction!",
+                            decoration: InputDecoration(
+                              hintText: "${direction.description}",
                               border: InputBorder.none,
                             ),
                           ),
@@ -286,16 +331,6 @@ class _UpdateScreenState extends State<UpdateScreen> {
                               });
                             },
                           ),
-                          const SizedBox(height: 10),
-                          ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              minimumSize: const Size(double.infinity, 50),
-                            ),
-                            onPressed: () {
-                              Navigator.pushNamed(context, '/recipe_details');
-                            },
-                            child: const Text('View Recipe'),
-                          ),
                           Container(
                             margin: EdgeInsets.all(25),
                             child: ElevatedButton(
@@ -315,7 +350,9 @@ class _UpdateScreenState extends State<UpdateScreen> {
                                       ingredientsController.text.isNotEmpty ||
                                       rimgController.text.isNotEmpty) {
                                     HttpRecipe http = HttpRecipe();
-                                    bool isRecipe = await http.addRecipe(Recipe(
+                                    bool isRecipe =
+                                        await http.updateRecipe(Recipe(
+                                      id: recipe.id,
                                       name: nameController.text,
                                       description: discriptionController.text,
                                       preptime: pretimeController.text,
@@ -324,7 +361,7 @@ class _UpdateScreenState extends State<UpdateScreen> {
                                       category: categoryController.text,
                                       ingredients: ingredientsController.text,
                                       direction: directionController.text,
-                                      image: _pickedImage,
+                                      // image: _pickedImage,
                                     ));
 
                                     if (isRecipe == true) {
@@ -335,7 +372,7 @@ class _UpdateScreenState extends State<UpdateScreen> {
                                     } else {
                                       ScaffoldMessenger.of(context)
                                           .showSnackBar(SnackBar(
-                                        content: Text("Add Recipe failed"),
+                                        content: Text("update Recipe failed"),
                                         backgroundColor: Colors.grey,
                                       ));
                                     }

@@ -2,12 +2,13 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:recipe_mobile_frontend/models/Ingredients_models.dart';
+import 'package:recipe_mobile_frontend/models/direction_models.dart';
 import 'package:recipe_mobile_frontend/models/recipe_models.dart';
 import 'package:recipe_mobile_frontend/screens/rating_review_screen.dart';
 import 'package:http/http.dart' as http;
+import 'package:recipe_mobile_frontend/screens/recipe_update.dart';
 import 'LoginForm.dart';
-import 'direction_screen.dart';
-import 'ingredient_screen.dart';
 
 //import 'package:flutter_rating_bar/flutter_rating_bar.dart'; bro yaii ho jasto lagyo
 
@@ -25,21 +26,26 @@ class DetailsScreen extends StatefulWidget {
 class _DetailsScreenState extends State<DetailsScreen> {
   bool eachvisible = false;
 
-  List ingredients = ['data', "some", 'data', "some"];
-
   Recipe recipe = Recipe();
+  Direction direction = Direction();
+  Ingredients ingredients = Ingredients();
 
   getRecipes() async {
     final url = Uri.parse(
-        "http://8272-2400-1a00-b050-78a2-85b1-c944-5f1d-c30e.ngrok.io/recipe/one/" +
+        "http://8900-2400-1a00-b050-78a2-85b1-c944-5f1d-c30e.ngrok.io/recipe/one/" +
             widget.id);
 
     final res = await http.get(url);
     print(res.body);
     final data = jsonDecode(res.body);
     final r = Recipe.fromJson((data)['recipe']);
+    final d = Direction.fromJson((data)['direction']);
+    final i = Ingredients.fromJson((data)['ingredients']);
+
     setState(() {
       recipe = r;
+      direction = d;
+      ingredients = i;
     });
     print(data);
     return data;
@@ -76,8 +82,9 @@ class _DetailsScreenState extends State<DetailsScreen> {
                   //color: Colors.red,
                   child: Image(
                     fit: BoxFit.cover,
-                    image: AssetImage(
-                      "assets/images/pic1.jpg",
+                    image: NetworkImage(
+                      "http://8900-2400-1a00-b050-78a2-85b1-c944-5f1d-c30e.ngrok.io/" +
+                          recipe.rimg!,
                     ),
                   ),
                 ),
@@ -196,7 +203,28 @@ class _DetailsScreenState extends State<DetailsScreen> {
               children: [
                 RichText(
                   text: TextSpan(
-                      text: "${recipe.description}\n",
+                      text: "Description\n",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      children: [
+                        TextSpan(
+                            text: "${recipe.description}\n",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            )),
+                      ]),
+                ),
+              ],
+            ),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                RichText(
+                  text: TextSpan(
+                      text: "Pretime\n",
                       style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
@@ -208,27 +236,23 @@ class _DetailsScreenState extends State<DetailsScreen> {
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
                             )),
+                      ]),
+                ),
+              ],
+            ),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                RichText(
+                  text: TextSpan(
+                      text: "Cooktime\n",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      children: [
                         TextSpan(
                             text: "${recipe.cooktime}\n",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                            )),
-                       
-                        TextSpan(
-                            text: "${recipe.category}\n",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                            )),
-                        TextSpan(
-                            text: "${recipe.ingredients}\n",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                            )),
-                        TextSpan(
-                            text: "${recipe.direction}\n",
                             style: TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
@@ -237,6 +261,72 @@ class _DetailsScreenState extends State<DetailsScreen> {
                 ),
               ],
             ),
+
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                RichText(
+                  text: TextSpan(
+                      text: "Category\n",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      children: [
+                        TextSpan(
+                            text: "${recipe.category}\n",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            )),
+                      ]),
+                ),
+              ],
+            ),
+
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                RichText(
+                  text: TextSpan(
+                      text: "Ingredients\n",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      children: [
+                        TextSpan(
+                            text: "${ingredients.IngredientsName}\n",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            )),
+                      ]),
+                ),
+              ],
+            ),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                RichText(
+                  text: TextSpan(
+                      text: "Direction\n",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      children: [
+                        TextSpan(
+                            text: "${direction.description}\n",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            )),
+                      ]),
+                ),
+              ],
+            ),
+
             // Visibility(
             //   visible: eachvisible,
             //   replacement: Container(),
@@ -266,6 +356,24 @@ class _DetailsScreenState extends State<DetailsScreen> {
             //     ),
             //   ],
             // ),
+
+            SizedBox(height: 19.0),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => UpdateScreen(
+                              id: recipe.id!,
+                            )));
+              },
+              child: Text("Update"),
+            ),
+            const Positioned(
+              top: 3,
+              right: 15,
+              child: Icon(Icons.delete, color: Colors.red, size: 40),
+            ),
 
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,

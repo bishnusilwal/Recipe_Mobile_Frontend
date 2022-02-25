@@ -1,11 +1,15 @@
-
 import 'package:recipe_mobile_frontend/models/direction_models.dart';
+
 class Direction {
-  final String step;
-  final String description;
+  final String? description;
 
   Direction({
-    required this.step,
-    required this.description,
+    this.description,
   });
+
+  factory Direction.fromJson(Map<String, dynamic> json) {
+    return Direction(
+      description: json['discription']
+    );
+  }
 }

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
-class Direction extends StatelessWidget {
-  const Direction({Key? key}) : super(key: key);
+class DirectionScreen extends StatelessWidget {
+  const DirectionScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

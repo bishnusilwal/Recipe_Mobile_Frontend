@@ -61,10 +61,10 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           LoginScreen(),
           // FormScreen(),
-          DetailsScreen(id: "bishnu"),
+          DetailsScreen(id: ""),
 
           // ProfileSetUpScreen(
-          //   username: "ram",
+          //   username: "",
           // ),
           // ProfileDetails(),
         ],
@@ -149,7 +149,11 @@ class RecipeCard extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => DetailsScreen(id: id,)));
+            context,
+            MaterialPageRoute(
+                builder: (context) => DetailsScreen(
+                      id: id,
+                    )));
       },
       child: Stack(
         children: [
