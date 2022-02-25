@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:recipe_mobile_frontend/http/httpuser.dart';
+
+import '../models/user_models.dart';
 //import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class ProfileDetails extends StatefulWidget {
@@ -10,6 +13,24 @@ class ProfileDetails extends StatefulWidget {
 }
 
 class _ProfileDetailsState extends State<ProfileDetails> {
+  late User user;
+  HttpConnectUser userHttp = HttpConnectUser();
+
+  Future<User> getUserProfile() async {
+    User myuser = await userHttp.getUser();
+    setState(() {
+      user = myuser;
+    });
+    print(myuser.fullname);
+    return myuser;
+  }
+
+  @override
+  void initState() {
+    getUserProfile();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -17,7 +38,7 @@ class _ProfileDetailsState extends State<ProfileDetails> {
     return Scaffold(
       backgroundColor: Colors.black87,
       appBar: AppBar(
-        title: Text('Show recipe'),
+        title: Text('Recipe Details'),
         backgroundColor: Colors.black,
       ),
       body: Padding(
@@ -28,14 +49,16 @@ class _ProfileDetailsState extends State<ProfileDetails> {
             Center(
               child: CircleAvatar(
                 radius: 100,
-                backgroundImage: AssetImage('assets/images/pic1.jpg'),
+                backgroundImage: NetworkImage(
+                  "http://fdb4-2400-1a00-b050-78a2-4d7b-ae95-9a75-b37b.ngrok.io/${user.uimg}",
+                ),
               ),
             ),
             // Text("Bishnu Silwal"),
-            SizedBox(height: 15),
-            const Text(
-              'Bishnu Silwal',
-              style: TextStyle(color: Colors.white),
+            const SizedBox(height: 15),
+            Text(
+              "${user.fullname}",
+              style: const TextStyle(color: Colors.white),
             ),
             SizedBox(
               width: 40,
@@ -46,26 +69,26 @@ class _ProfileDetailsState extends State<ProfileDetails> {
               children: [
                 RichText(
                   text: TextSpan(
-                      text: 'Bishnusilwal99@gmail.com\n',
+                      text: "${user.email}\n",
                       style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
                       ),
                       children: [
                         TextSpan(
-                            text: '98635352718\n',
+                            text: "${user.phone}\n",
                             style: TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
                             )),
                         TextSpan(
-                            text: 'Dhadig\n',
+                            text: "${user.location}\n",
                             style: TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
                             )),
                         TextSpan(
-                            text: 'My name is bishnu silwal\n',
+                            text: "${user.bio}\n",
                             style: TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.bold,

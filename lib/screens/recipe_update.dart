@@ -3,21 +3,21 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:recipe_mobile_frontend/http/http_recipe.dart';
 import 'package:recipe_mobile_frontend/models/recipe_models.dart';
-import 'package:recipe_mobile_frontend/screens/recipe_update.dart';
 import 'package:recipe_mobile_frontend/widget/colors.dart';
 
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class FormScreen extends StatefulWidget {
-  const FormScreen({Key? key}) : super(key: key);
+class UpdateScreen extends StatefulWidget {
+  const UpdateScreen({Key? key, required this.id,}) : super(key: key);
   // String dropdownValue = 'Veg';
+  final String id;
 
   @override
-  _FormScreenState createState() => _FormScreenState();
+  _UpdateScreenState createState() => _UpdateScreenState();
 }
 
-class _FormScreenState extends State<FormScreen> {
+class _UpdateScreenState extends State<UpdateScreen> {
   final nameController = new TextEditingController();
   final discriptionController = new TextEditingController();
   final pretimeController = new TextEditingController();
@@ -31,6 +31,23 @@ class _FormScreenState extends State<FormScreen> {
   File? _pickedImage;
 
   String dropdownvalue = 'Veg';
+
+  late Recipe recipe;
+  HttpRecipe httpRecipe = HttpRecipe();
+
+  Future<Recipe> getDetail() async {
+    Recipe myrecipe = await httpRecipe.getRecipeById(widget.id);
+    setState(() {
+      recipe = myrecipe;
+    });
+    return myrecipe;
+  }
+
+  @override
+  void initState() {
+    getDetail();
+    super.initState();
+  }
 
   // List of items in our dropdown menu
   var items = [
@@ -325,9 +342,7 @@ class _FormScreenState extends State<FormScreen> {
                                   } else {}
                                 }),
                           ),
-                         
                         ],
-                        
                       ),
                     ),
                   ])),

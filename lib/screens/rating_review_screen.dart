@@ -74,7 +74,7 @@ class _RatingReviewScreenState extends State<RatingReviewScreen> {
                       borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(20),
                           topRight: Radius.circular(20)),
-                      color: Colors.white,
+                      color: Colors.black,
                     ),
                   ),
                 ),
@@ -174,7 +174,7 @@ class _RatingReviewScreenState extends State<RatingReviewScreen> {
                   style: TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.bold,
-                    color: Colors.black,
+                    color: Colors.white,
                   ),
                 ),
               ],
@@ -187,9 +187,6 @@ class _RatingReviewScreenState extends State<RatingReviewScreen> {
                 color: inputBoxColor,
               ),
               child: TextFormField(
-                // controller: controller,
-                // keyboardType: keyboardType,
-                // obscureText: isInvisible!,
                 maxLines: 5,
                 decoration: const InputDecoration(
                   hintText: "Write something!",
@@ -205,7 +202,7 @@ class _RatingReviewScreenState extends State<RatingReviewScreen> {
                   style: TextStyle(fontSize: 20.0),
                 ),
                 color: Colors.blueAccent,
-                textColor: Colors.white,
+                textColor: Colors.black,
                 onPressed: () {},
               ),
             ),

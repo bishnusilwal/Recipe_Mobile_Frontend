@@ -7,7 +7,7 @@ import 'package:http/http.dart' as http;
 
 class HttpRecipe {
   String baseurl =
-      'http://fdb4-2400-1a00-b050-78a2-4d7b-ae95-9a75-b37b.ngrok.io/';
+      'http://8272-2400-1a00-b050-78a2-85b1-c944-5f1d-c30e.ngrok.io/';
 
   Future getToken() async {
     var box = await Hive.openBox('token');
@@ -27,6 +27,23 @@ class HttpRecipe {
         return recipes;
       } else {
         return [];
+      }
+    } catch (e) {
+      return Future.error(e);
+    }
+  }
+
+  Future<Recipe> getRecipeById(String id) async {
+    try {
+      final response = await http.get(Uri.parse(baseurl + "recipe/" + id));
+      if (response.statusCode == 200) {
+        var data = jsonDecode(response.body);
+
+        Recipe recipes = Recipe.fromJson(data);
+
+        return recipes;
+      } else {
+        return Future.error("dsfad");
       }
     } catch (e) {
       return Future.error(e);

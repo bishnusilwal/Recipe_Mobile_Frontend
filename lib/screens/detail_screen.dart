@@ -8,8 +8,8 @@ import 'package:http/http.dart' as http;
 import 'LoginForm.dart';
 import 'direction_screen.dart';
 import 'ingredient_screen.dart';
-import 'nutrition_screen.dart';
-//import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+
+//import 'package:flutter_rating_bar/flutter_rating_bar.dart'; bro yaii ho jasto lagyo
 
 class DetailsScreen extends StatefulWidget {
   DetailsScreen({
@@ -27,23 +27,35 @@ class _DetailsScreenState extends State<DetailsScreen> {
 
   List ingredients = ['data', "some", 'data', "some"];
 
-  late final Recipe recipe;
+  Recipe recipe = Recipe();
 
   getRecipes() async {
-    final url = Uri.parse("http://localhost:90/recipe/${widget.id}");
+    final url = Uri.parse(
+        "http://8272-2400-1a00-b050-78a2-85b1-c944-5f1d-c30e.ngrok.io/recipe/one/" +
+            widget.id);
+
     final res = await http.get(url);
+    print(res.body);
     final data = jsonDecode(res.body);
-    final r = Recipe.fromJson(data);
+    final r = Recipe.fromJson((data)['recipe']);
     setState(() {
       recipe = r;
     });
+    print(data);
     return data;
   }
 
   @override
   void initState() {
-    super.initState();
     getRecipes();
+
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
   }
 
   @override
@@ -120,7 +132,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                               children: [
                                 Expanded(
                                   child: Text(
-                                    recipe.name!,
+                                    "${recipe.name}",
                                     maxLines: 2,
                                     overflow: TextOverflow.ellipsis,
                                     style: TextStyle(
@@ -128,17 +140,9 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                         fontWeight: FontWeight.w500),
                                   ),
                                 ),
-                                Icon(Icons.favorite)
+                                // Icon(Icons.favorite)
                               ],
                             ),
-                            // Text(
-                            //   "my name is bishnu silwal",
-                            //   style: TextStyle(
-                            //     fontSize: 14,
-                            //     fontWeight: FontWeight.normal,
-                            //     color: Colors.grey,
-                            //   ),
-                            // ),
                             Container(
                               width: size.width,
                               height: 1,
@@ -173,7 +177,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                   child: Row(
                                     children: [
                                       Icon(Icons.lock_clock),
-                                      Text("50min")
+                                      Text("${recipe.totaltime}")
                                     ],
                                   ),
                                 )
@@ -190,65 +194,79 @@ class _DetailsScreenState extends State<DetailsScreen> {
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                TextButton(
-                  onPressed: () {
-                    setState(() {
-                      eachvisible = !eachvisible;
-                    });
-                  },
-                  child: Text(
-                    'Ingredients',
-                    textAlign: TextAlign.end,
-                  ),
+                RichText(
+                  text: TextSpan(
+                      text: "${recipe.description}\n",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      children: [
+                        TextSpan(
+                            text: "${recipe.preptime}\n",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            )),
+                        TextSpan(
+                            text: "${recipe.cooktime}\n",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            )),
+                       
+                        TextSpan(
+                            text: "${recipe.category}\n",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            )),
+                        TextSpan(
+                            text: "${recipe.ingredients}\n",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            )),
+                        TextSpan(
+                            text: "${recipe.direction}\n",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            )),
+                      ]),
                 ),
               ],
             ),
-            Visibility(
-              visible: eachvisible,
-              replacement: Container(),
-              child: Container(
-                width: double.infinity,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    ...ingredients.map((e) => Text(e)),
-                  ],
-                ),
-              ),
-            ),
+            // Visibility(
+            //   visible: eachvisible,
+            //   replacement: Container(),
+            //   child: Container(
+            //     width: double.infinity,
+            //     child: Column(
+            //       crossAxisAlignment: CrossAxisAlignment.start,
+            //       children: [
+            //         // ...ingredients.map((e) => Text(e)),
+            //       ],
+            //     ),
+            //   ),
+            // ),
 
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                TextButton(
-                  onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => Direction()));
-                  },
-                  child: Text(
-                    'Directions',
-                    textAlign: TextAlign.end,
-                  ),
-                ),
-              ],
-            ),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                TextButton(
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => NutritionInfo()));
-                  },
-                  child: Text(
-                    'NutritionInfo',
-                    textAlign: TextAlign.end,
-                  ),
-                ),
-              ],
-            ),
+            // Row(
+            //   crossAxisAlignment: CrossAxisAlignment.start,
+            //   children: [
+            //     TextButton(
+            //       onPressed: () {
+            //         Navigator.push(context,
+            //             MaterialPageRoute(builder: (context) => Direction()));
+            //       },
+            //       child: Text(
+            //         "${recipe.name}",
+            //         textAlign: TextAlign.end,
+            //       ),
+            //     ),
+            //   ],
+            // ),
+
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [

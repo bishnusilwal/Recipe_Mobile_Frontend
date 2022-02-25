@@ -44,6 +44,7 @@ class _RecipeScreenState extends State<RecipeScreen> {
           crossAxisCount: orientation == Orientation.portrait ? 2 : 3,
           children: List.generate(recipes.length, (index) {
             return RecipeCard(
+              id: index.toString(),
               image: "assets/images/pic1.jpg",
               title: recipes[index].name,
             );

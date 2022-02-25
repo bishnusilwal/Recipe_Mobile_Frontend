@@ -9,12 +9,12 @@ import 'package:recipe_mobile_frontend/models/recipe_models.dart';
 import 'package:recipe_mobile_frontend/screens/LoginForm.dart';
 import 'package:recipe_mobile_frontend/screens/RegisterScreen.dart';
 import 'package:recipe_mobile_frontend/screens/home_page.dart';
-import 'package:recipe_mobile_frontend/screens/nutrition_screen.dart';
 import 'package:recipe_mobile_frontend/screens/profile_form.dart';
 import 'package:recipe_mobile_frontend/screens/detail_screen.dart';
 import 'package:recipe_mobile_frontend/screens/SearchScreen.dart';
 import 'package:recipe_mobile_frontend/screens/veg_screen.dart';
 import 'package:recipe_mobile_frontend/screens/profile_form.dart';
+import 'package:recipe_mobile_frontend/screens/detail_screen.dart';
 
 import 'package:http/http.dart' as http;
 import 'ingredient_screen.dart';
@@ -61,9 +61,11 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           LoginScreen(),
           // FormScreen(),
-          ProfileSetUpScreen(
-            username: "ram",
-          ),
+          DetailsScreen(id: "bishnu"),
+
+          // ProfileSetUpScreen(
+          //   username: "ram",
+          // ),
           // ProfileDetails(),
         ],
       ),
@@ -134,21 +136,20 @@ class _HomeScreenState extends State<HomeScreen> {
 }
 
 class RecipeCard extends StatelessWidget {
-  const RecipeCard({
-    Key? key,
-    required this.title,
-    required this.image,
-  }) : super(key: key);
+  const RecipeCard(
+      {Key? key, required this.title, required this.image, required this.id})
+      : super(key: key);
 
   final String title;
+  final String id;
   final String image;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        // Navigator.push(
-        //     context, MaterialPageRoute(builder: (context) => DetailsScreen()));
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => DetailsScreen(id: id,)));
       },
       child: Stack(
         children: [

@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_literals_to_create_immutables
+
 import 'package:flutter/material.dart';
 import 'package:recipe_mobile_frontend/http/http_recipe.dart';
 import 'package:recipe_mobile_frontend/screens/favourite_screen.dart';
@@ -88,7 +90,7 @@ class _HomePageState extends State<HomePage> {
                 scrollDirection: Axis.horizontal,
                 children: [
                   ...veg.map((r) => RecipeCard(
-                      // id: r.id,
+                      id: r.id,
                       title: r.name,
                       image: "assets/images/pic3.jpg")),
                 ],
@@ -170,10 +172,10 @@ class _HomePageState extends State<HomePage> {
               child: ListView(
                 scrollDirection: Axis.horizontal,
                 children: [
-                  RecipeCard(title: "Egg", image: "assets/images/pic2.jpg"),
-                  RecipeCard(title: "Poha", image: "assets/images/pic3.jpg"),
-                  RecipeCard(
-                      title: "Rajasthani", image: "assets/images/pic1.jpg"),
+                  // RecipeCard(title: "Egg", image: "assets/images/pic2.jpg"),
+                  // RecipeCard(title: "Poha", image: "assets/images/pic3.jpg"),
+                  // RecipeCard(
+                  //     title: "Rajasthani", image: "assets/images/pic1.jpg"),
                 ],
               ),
             ),
