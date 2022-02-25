@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:recipe_mobile_frontend/widget/colors.dart';
-//import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+// import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class RatingReviewScreen extends StatefulWidget {
   const RatingReviewScreen({Key? key}) : super(key: key);
@@ -110,14 +110,7 @@ class _RatingReviewScreenState extends State<RatingReviewScreen> {
                                 Icon(Icons.favorite)
                               ],
                             ),
-                            // Text(
-                            //   "my name is bishnu silwal",
-                            //   style: TextStyle(
-                            //     fontSize: 14,
-                            //     fontWeight: FontWeight.normal,
-                            //     color: Colors.grey,
-                            //   ),
-                            // ),
+                          
                             Container(
                               width: size.width,
                               height: 1,
@@ -190,6 +183,7 @@ class _RatingReviewScreenState extends State<RatingReviewScreen> {
                 maxLines: 5,
                 decoration: const InputDecoration(
                   hintText: "Write something!",
+                  
                   border: InputBorder.none,
                 ),
               ),

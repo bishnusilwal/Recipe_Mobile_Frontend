@@ -62,7 +62,7 @@ class _UpdateScreenState extends State<UpdateScreen> {
 
   getRecipes() async {
     final url = Uri.parse(
-        "http://8900-2400-1a00-b050-78a2-85b1-c944-5f1d-c30e.ngrok.io/recipe/one/" +
+        "http://6adc-2400-1a00-b050-65bc-b8ac-477e-f419-84cc.ngrok.io/recipe/one/" +
             widget.id);
 
     final res = await http.get(url);

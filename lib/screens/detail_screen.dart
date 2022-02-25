@@ -2,13 +2,17 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:recipe_mobile_frontend/http/http_recipe.dart';
 import 'package:recipe_mobile_frontend/models/Ingredients_models.dart';
 import 'package:recipe_mobile_frontend/models/direction_models.dart';
 import 'package:recipe_mobile_frontend/models/recipe_models.dart';
+import 'package:recipe_mobile_frontend/models/review_models.dart';
 import 'package:recipe_mobile_frontend/screens/rating_review_screen.dart';
 import 'package:http/http.dart' as http;
 import 'package:recipe_mobile_frontend/screens/recipe_update.dart';
+import 'package:recipe_mobile_frontend/widget/colors.dart';
 import 'LoginForm.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 //import 'package:flutter_rating_bar/flutter_rating_bar.dart'; bro yaii ho jasto lagyo
 
@@ -24,15 +28,19 @@ class DetailsScreen extends StatefulWidget {
 }
 
 class _DetailsScreenState extends State<DetailsScreen> {
+  final reviewController = new TextEditingController();
+  HttpRecipe hhtpRecipe = HttpRecipe();
+
   bool eachvisible = false;
 
   Recipe recipe = Recipe();
   Direction direction = Direction();
   Ingredients ingredients = Ingredients();
+  List<Review> review = [];
 
   getRecipes() async {
     final url = Uri.parse(
-        "http://8900-2400-1a00-b050-78a2-85b1-c944-5f1d-c30e.ngrok.io/recipe/one/" +
+        "http://6adc-2400-1a00-b050-65bc-b8ac-477e-f419-84cc.ngrok.io/recipe/one/" +
             widget.id);
 
     final res = await http.get(url);
@@ -41,11 +49,13 @@ class _DetailsScreenState extends State<DetailsScreen> {
     final r = Recipe.fromJson((data)['recipe']);
     final d = Direction.fromJson((data)['direction']);
     final i = Ingredients.fromJson((data)['ingredients']);
-
+    List rev = (data)['review'];
+    List<Review> revi = rev.map((e) => Review.fromJson(e)).toList();
     setState(() {
       recipe = r;
       direction = d;
       ingredients = i;
+      review = revi;
     });
     print(data);
     return data;
@@ -83,7 +93,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                   child: Image(
                     fit: BoxFit.cover,
                     image: NetworkImage(
-                      "http://8900-2400-1a00-b050-78a2-85b1-c944-5f1d-c30e.ngrok.io/" +
+                      "http://6adc-2400-1a00-b050-65bc-b8ac-477e-f419-84cc.ngrok.io/" +
                           recipe.rimg!,
                     ),
                   ),
@@ -357,6 +367,65 @@ class _DetailsScreenState extends State<DetailsScreen> {
             //   ],
             // ),
 
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  "Rating",
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                ),
+              ],
+            ),
+            RatingBar.builder(
+              initialRating: 0,
+              minRating: 1,
+              direction: Axis.horizontal,
+              allowHalfRating: true,
+              itemCount: 5,
+              itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
+              itemBuilder: (context, _) => Icon(
+                Icons.star,
+                color: Colors.amber,
+              ),
+              onRatingUpdate: (rating) {
+                hhtpRecipe.rateRecipe(rating, recipe.id!);
+              },
+            ),
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 3.0),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(15.0),
+                color: inputBoxColor,
+              ),
+              child: TextFormField(
+                controller: reviewController,
+                maxLines: 5,
+                decoration: const InputDecoration(
+                  hintText: "Write something!",
+                  border: InputBorder.none,
+                ),
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.all(25),
+              child: FlatButton(
+                child: Text(
+                  'Submit',
+                  style: TextStyle(fontSize: 20.0),
+                ),
+                color: Colors.blueAccent,
+                textColor: Colors.black,
+                onPressed: () async {
+                  await hhtpRecipe.reviewRecipe(
+                      reviewController.text, recipe.id!);
+                },
+              ),
+            ),
+
             SizedBox(height: 19.0),
             ElevatedButton(
               onPressed: () {
@@ -392,6 +461,16 @@ class _DetailsScreenState extends State<DetailsScreen> {
                 ),
               ],
             ),
+            ...review.map((r) => 
+              Column(
+                children: [
+                  Text(r.user!),
+                  Text(r.review!),
+                ],
+              )
+            )
+              
+            
           ],
         )),
       ),

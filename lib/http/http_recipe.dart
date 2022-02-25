@@ -7,7 +7,7 @@ import 'package:http/http.dart' as http;
 
 class HttpRecipe {
   String baseurl =
-      'http://8900-2400-1a00-b050-78a2-85b1-c944-5f1d-c30e.ngrok.io/';
+      'http://6adc-2400-1a00-b050-65bc-b8ac-477e-f419-84cc.ngrok.io/';
 
   Future getToken() async {
     var box = await Hive.openBox('token');
@@ -135,6 +135,56 @@ class HttpRecipe {
           Uri.parse(baseurl + 'recipe/update/${recipe.id}'),
           body: userMap,
           headers: headers);
+      print(response.statusCode);
+
+      if (response.statusCode == 200) {
+        print(response.body);
+        return true;
+      }
+      return false;
+    } catch (e) {
+      return Future.error(e);
+    }
+  }
+
+  Future<bool> rateRecipe(double rate, String id) async {
+    Map<String, dynamic> userMap = {
+      "rating": rate,
+    };
+
+    try {
+      var box = await Hive.openBox('token');
+      var token = box.getAt(0).token;
+      Map<String, String> headers = {
+        'Authorization': 'Bearer $token',
+      };
+      final response = await http.put(Uri.parse(baseurl + 'recipe/$id/rate'),
+          body: userMap, headers: headers);
+      print(response.statusCode);
+
+      if (response.statusCode == 200) {
+        print(response.body);
+        return true;
+      }
+      return false;
+    } catch (e) {
+      return Future.error(e);
+    }
+  }
+
+    Future<bool> reviewRecipe(String review, String id) async {
+    Map<String, dynamic> userMap = {
+      "review": review,
+    };
+
+    try {
+      var box = await Hive.openBox('token');
+      var token = box.getAt(0).token;
+      Map<String, String> headers = {
+        'Authorization': 'Bearer $token',
+      };
+      final response = await http.put(Uri.parse(baseurl + 'recipe/$id/review'),
+          body: userMap, headers: headers);
       print(response.statusCode);
 
       if (response.statusCode == 200) {
