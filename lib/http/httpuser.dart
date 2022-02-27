@@ -7,7 +7,7 @@ import 'package:recipe_mobile_frontend/models/user_models.dart';
 
 class HttpConnectUser {
   String baseurl =
-      'http://6adc-2400-1a00-b050-65bc-b8ac-477e-f419-84cc.ngrok.io/';
+      'http://34cd-2400-1a00-b050-c1a5-f00c-cc04-9ae7-9d8b.ngrok.io/';
 
   Future<bool> registerPost(User user) async {
     Map<String, dynamic> userMap = {
@@ -74,7 +74,6 @@ class HttpConnectUser {
       "phone": user.phone ?? "",
       "location": user.location ?? "",
       "bio": user.bio ?? "",
-      // "rimg": user.rimg,
       "filename": "${user.fullname}_image"
     };
 
@@ -140,7 +139,7 @@ class HttpConnectUser {
 
       return a;
     } else {
-      throw Exception('Failed to load students');
+      throw Exception('Failed to load User');
     }
   }
 }

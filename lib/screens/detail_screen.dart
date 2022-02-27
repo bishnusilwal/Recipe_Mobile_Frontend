@@ -2,12 +2,12 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:hive/hive.dart';
 import 'package:recipe_mobile_frontend/http/http_recipe.dart';
 import 'package:recipe_mobile_frontend/models/Ingredients_models.dart';
 import 'package:recipe_mobile_frontend/models/direction_models.dart';
 import 'package:recipe_mobile_frontend/models/recipe_models.dart';
 import 'package:recipe_mobile_frontend/models/review_models.dart';
-import 'package:recipe_mobile_frontend/screens/rating_review_screen.dart';
 import 'package:http/http.dart' as http;
 import 'package:recipe_mobile_frontend/screens/recipe_update.dart';
 import 'package:recipe_mobile_frontend/widget/colors.dart';
@@ -40,11 +40,10 @@ class _DetailsScreenState extends State<DetailsScreen> {
 
   getRecipes() async {
     final url = Uri.parse(
-        "http://6adc-2400-1a00-b050-65bc-b8ac-477e-f419-84cc.ngrok.io/recipe/one/" +
+        "http://34cd-2400-1a00-b050-c1a5-f00c-cc04-9ae7-9d8b.ngrok.io/recipe/one/" +
             widget.id);
 
     final res = await http.get(url);
-    print(res.body);
     final data = jsonDecode(res.body);
     final r = Recipe.fromJson((data)['recipe']);
     final d = Direction.fromJson((data)['direction']);
@@ -57,8 +56,22 @@ class _DetailsScreenState extends State<DetailsScreen> {
       ingredients = i;
       review = revi;
     });
-    print(data);
+    print(recipe.rimg);
     return data;
+  }
+
+  addToFav() async {
+    final url = Uri.parse(
+        "http://34cd-2400-1a00-b050-c1a5-f00c-cc04-9ae7-9d8b.ngrok.io/favourite/recipe/" +
+            widget.id);
+    var box = await Hive.openBox('token');
+    var token = box.getAt(0).token;
+    final res =
+        await http.post(url, headers: {"Authorization": "Bearer $token"});
+    print(res.body);
+    if (res.statusCode == 200) {
+      return "Liked";
+    }
   }
 
   @override
@@ -70,7 +83,6 @@ class _DetailsScreenState extends State<DetailsScreen> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
   }
 
@@ -93,8 +105,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                   child: Image(
                     fit: BoxFit.cover,
                     image: NetworkImage(
-                      "http://6adc-2400-1a00-b050-65bc-b8ac-477e-f419-84cc.ngrok.io/" +
-                          recipe.rimg!,
+                      "http://34cd-2400-1a00-b050-c1a5-f00c-cc04-9ae7-9d8b.ngrok.io/${recipe.rimg}",
                     ),
                   ),
                 ),
@@ -158,6 +169,15 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                   ),
                                 ),
                                 // Icon(Icons.favorite)
+                                Container(
+                                  child: IconButton(
+                                    icon: const Icon(Icons.favorite),
+                                    color: Colors.white,
+                                    onPressed: () async {
+                                      await addToFav();
+                                    },
+                                  ),
+                                )
                               ],
                             ),
                             Container(
@@ -402,11 +422,18 @@ class _DetailsScreenState extends State<DetailsScreen> {
                 color: inputBoxColor,
               ),
               child: TextFormField(
+                style: TextStyle(color: Colors.black),
                 controller: reviewController,
-                maxLines: 5,
-                decoration: const InputDecoration(
-                  hintText: "Write something!",
+                maxLines: 3,
+                decoration: InputDecoration(
+                  hintStyle: TextStyle(color: Colors.black),
                   border: InputBorder.none,
+                  hintText: "Write something!",
+                  focusedBorder: OutlineInputBorder(
+                    borderSide:
+                        const BorderSide(color: Colors.black, width: 2.0),
+                    borderRadius: BorderRadius.circular(25.0),
+                  ),
                 ),
               ),
             ),
@@ -438,39 +465,24 @@ class _DetailsScreenState extends State<DetailsScreen> {
               },
               child: Text("Update"),
             ),
-            const Positioned(
+            Positioned(
               top: 3,
               right: 15,
               child: Icon(Icons.delete, color: Colors.red, size: 40),
             ),
 
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                TextButton(
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => RatingReviewScreen()));
-                  },
-                  child: Text(
-                    'Rating & Review',
-                    textAlign: TextAlign.end,
-                  ),
-                ),
-              ],
+            Positioned(
+              top: 3,
+              right: 15,
+              child: Icon(Icons.favorite, color: Colors.green, size: 40),
             ),
-            ...review.map((r) => 
-              Column(
-                children: [
-                  Text(r.user!),
-                  Text(r.review!),
-                ],
-              )
-            )
-              
-            
+
+            ...review.map((r) => Column(
+                  children: [
+                    Text(r.user!),
+                    Text(r.review!),
+                  ],
+                ))
           ],
         )),
       ),

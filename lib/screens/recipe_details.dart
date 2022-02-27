@@ -50,7 +50,7 @@ class _ProfileDetailsState extends State<ProfileDetails> {
               child: CircleAvatar(
                 radius: 100,
                 backgroundImage: NetworkImage(
-                  "http://6adc-2400-1a00-b050-65bc-b8ac-477e-f419-84cc.ngrok.io/${user.uimg}",
+                  "http://34cd-2400-1a00-b050-c1a5-f00c-cc04-9ae7-9d8b.ngrok.io/${user.uimg}",
                 ),
               ),
             ),

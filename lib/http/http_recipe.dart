@@ -7,7 +7,7 @@ import 'package:http/http.dart' as http;
 
 class HttpRecipe {
   String baseurl =
-      'http://6adc-2400-1a00-b050-65bc-b8ac-477e-f419-84cc.ngrok.io/';
+      'http://34cd-2400-1a00-b050-c1a5-f00c-cc04-9ae7-9d8b.ngrok.io/';
 
   Future getToken() async {
     var box = await Hive.openBox('token');
@@ -43,7 +43,7 @@ class HttpRecipe {
 
         return recipes;
       } else {
-        return Future.error("dsfad");
+        return Future.error("failed");
       }
     } catch (e) {
       return Future.error(e);
@@ -172,7 +172,7 @@ class HttpRecipe {
     }
   }
 
-    Future<bool> reviewRecipe(String review, String id) async {
+  Future<bool> reviewRecipe(String review, String id) async {
     Map<String, dynamic> userMap = {
       "review": review,
     };

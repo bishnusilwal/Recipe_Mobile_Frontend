@@ -269,16 +269,16 @@ class _FormScreenState extends State<FormScreen> {
                               });
                             },
                           ),
-                          const SizedBox(height: 10),
-                          ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              minimumSize: const Size(double.infinity, 50),
-                            ),
-                            onPressed: () {
-                              Navigator.pushNamed(context, '/recipe_details');
-                            },
-                            child: const Text('View Recipe'),
-                          ),
+                          // const SizedBox(height: 10),
+                          // ElevatedButton(
+                          //   style: ElevatedButton.styleFrom(
+                          //     minimumSize: const Size(double.infinity, 50),
+                          //   ),
+                          //   onPressed: () {
+                          //     Navigator.pushNamed(context, '/recipe_details');
+                          //   },
+                          //   child: const Text('View Recipe'),
+                          // ),
                           Container(
                             margin: EdgeInsets.all(25),
                             child: ElevatedButton(
@@ -325,9 +325,7 @@ class _FormScreenState extends State<FormScreen> {
                                   } else {}
                                 }),
                           ),
-                         
                         ],
-                        
                       ),
                     ),
                   ])),

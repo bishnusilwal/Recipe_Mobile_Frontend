@@ -36,7 +36,7 @@ class Recipe {
       name: json["name"],
       id: json["_id"],
       description: json["description"],
-      rimg: (json["img"] != null) ? json["img"] : "",
+      rimg: (json["rimg"] != null) ? json["rimg"] : "",
       preptime: json["pretime"],
       cooktime: json["cooktime"],
       totaltime: json["totaltime"],

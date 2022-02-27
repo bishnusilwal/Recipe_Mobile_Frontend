@@ -260,14 +260,7 @@ class _ProfileSetUpScreenState extends State<ProfileSetUpScreen> {
                 },
               ),
             ),
-            SizedBox(height: 19.0),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => ProfileDetails()));
-              },
-              child: Text("view user"),
-            ),
+        
           ],
         ),
       ),

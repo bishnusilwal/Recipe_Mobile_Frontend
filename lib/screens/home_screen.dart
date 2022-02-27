@@ -8,6 +8,7 @@ import 'package:recipe_mobile_frontend/models/recipe_models.dart';
 
 import 'package:recipe_mobile_frontend/screens/LoginForm.dart';
 import 'package:recipe_mobile_frontend/screens/RegisterScreen.dart';
+import 'package:recipe_mobile_frontend/screens/favourite_screen.dart';
 import 'package:recipe_mobile_frontend/screens/home_page.dart';
 import 'package:recipe_mobile_frontend/screens/profile_form.dart';
 import 'package:recipe_mobile_frontend/screens/detail_screen.dart';
@@ -19,7 +20,6 @@ import 'package:recipe_mobile_frontend/screens/detail_screen.dart';
 import 'package:http/http.dart' as http;
 import 'ingredient_screen.dart';
 import 'profile_details.dart';
-import 'rating_review_screen.dart';
 import 'recipe_form.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -48,25 +48,27 @@ class _HomeScreenState extends State<HomeScreen> {
         controller: controller,
         children: <Widget>[
           HomePage(),
-          Container(
-            child: Center(
-              child: ElevatedButton(
-                onPressed: () async {
-                  HttpConnectUser http = HttpConnectUser();
-                  await http.clear();
-                },
-                child: Text("Logout"),
-              ),
-            ),
-          ),
-          LoginScreen(),
-          // FormScreen(),
-          DetailsScreen(id: ""),
+          FormScreen(),
+          // Container(
+          //   child: Center(
+          //     child: ElevatedButton(
+          //       onPressed: () async {
+          //         HttpConnectUser http = HttpConnectUser();
+          //         await http.clear();
+          //       },
+          //       child: Text("Logout"),
+          //     ),
+          //   ),
+          // ),
+          // LoginScreen(),
+          FavouriteScreen(),
+
+          // DetailsScreen(id: ""),
 
           // ProfileSetUpScreen(
           //   username: "",
           // ),
-          // ProfileDetails(),
+          ProfileDetails(),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(

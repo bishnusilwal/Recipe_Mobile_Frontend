@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:recipe_mobile_frontend/http/httpuser.dart';
+import 'package:recipe_mobile_frontend/screens/LoginForm.dart';
+import 'package:recipe_mobile_frontend/screens/profile_form.dart';
 
 import '../models/user_models.dart';
 //import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -13,7 +15,7 @@ class ProfileDetails extends StatefulWidget {
 }
 
 class _ProfileDetailsState extends State<ProfileDetails> {
-  late User user;
+  User user = User();
   HttpConnectUser userHttp = HttpConnectUser();
 
   Future<User> getUserProfile() async {
@@ -50,7 +52,7 @@ class _ProfileDetailsState extends State<ProfileDetails> {
               child: CircleAvatar(
                 radius: 100,
                 backgroundImage: NetworkImage(
-                  "http://6adc-2400-1a00-b050-65bc-b8ac-477e-f419-84cc.ngrok.io/${user.uimg}",
+                  "http://34cd-2400-1a00-b050-c1a5-f00c-cc04-9ae7-9d8b.ngrok.io/${user.uimg}",
                 ),
               ),
             ),
@@ -96,6 +98,34 @@ class _ProfileDetailsState extends State<ProfileDetails> {
                       ]),
                 ),
               ],
+            ),
+            SizedBox(height: 19.0),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => ProfileSetUpScreen(
+                              username: '',
+                            )));
+              },
+              child: Text("Update user"),
+            ),
+
+            Container(
+              child: Center(
+                child: ElevatedButton(
+                  onPressed: () async {
+                    HttpConnectUser http = HttpConnectUser();
+                    await http.clear();
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: ((context) => LoginScreen())));
+                  },
+                  child: Text("Logout"),
+                ),
+              ),
             ),
           ],
         ),

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:recipe_mobile_frontend/http/http_recipe.dart';
 import 'package:recipe_mobile_frontend/screens/favourite_screen.dart';
 import 'package:recipe_mobile_frontend/screens/home_screen.dart';
+import 'package:recipe_mobile_frontend/screens/veg_screen.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
