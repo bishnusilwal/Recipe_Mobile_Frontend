@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:recipe_mobile_frontend/constants.dart';
 import 'package:recipe_mobile_frontend/models/recipe_models.dart';
 import 'package:recipe_mobile_frontend/screens/home_screen.dart';
 import 'package:http/http.dart' as http;
@@ -15,8 +16,10 @@ class RecipeScreen extends StatefulWidget {
 class _RecipeScreenState extends State<RecipeScreen> {
   List recipes = [];
   getRecipes() async {
-    final res = await http.get(Uri.parse(widget.url));
-    final data = jsonDecode(res.body);
+    final res = await http
+        .get(Uri.parse(Constants.baseUrl + Constants.recipeUrl + widget.url));
+    List data = jsonDecode(res.body);
+    print(res.body);
     final fasd = data.map((d) => Recipe.fromJson(d)).toList();
     setState(() {
       recipes = fasd;
@@ -27,8 +30,9 @@ class _RecipeScreenState extends State<RecipeScreen> {
   @override
   void initState() {
     // TODO: implement initState
-    super.initState();
     getRecipes();
+    print(Constants.baseUrl + Constants.recipeUrl + widget.url);
+    super.initState();
   }
 
   @override
@@ -45,7 +49,9 @@ class _RecipeScreenState extends State<RecipeScreen> {
           children: List.generate(recipes.length, (index) {
             return RecipeCard(
               id: index.toString(),
-              image: "assets/images/pic1.jpg",
+              image:
+                  "http://34cd-2400-1a00-b050-c1a5-f00c-cc04-9ae7-9d8b.ngrok.io/" +
+                      recipes[index].rimg,
               title: recipes[index].name,
             );
           }),

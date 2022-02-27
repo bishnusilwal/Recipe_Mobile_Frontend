@@ -89,7 +89,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           BottomNavigationBarItem(
             icon: Icon(
-              Icons.search,
+              Icons.add,
               color: (currentIndex == 1) ? Colors.red : Colors.green,
             ),
             label: "",
@@ -166,7 +166,7 @@ class RecipeCard extends StatelessWidget {
                 borderRadius: BorderRadius.circular(8),
                 image: DecorationImage(
                   fit: BoxFit.cover,
-                  image: AssetImage(
+                  image: NetworkImage(
                     image,
                   ),
                 )),
@@ -216,7 +216,7 @@ class _PopularCardState extends State<PopularCard> {
                 borderRadius: BorderRadius.circular(8),
                 image: DecorationImage(
                   fit: BoxFit.cover,
-                  image: AssetImage(
+                  image: NetworkImage(
                     widget.image,
                   ),
                 )),

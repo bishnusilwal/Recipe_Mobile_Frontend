@@ -33,6 +33,23 @@ class HttpRecipe {
     }
   }
 
+  Future<List> getRecommendRecipe() async {
+    try {
+      final response = await http.get(Uri.parse(baseurl + "recipe/"));
+      if (response.statusCode == 200) {
+        var data = jsonDecode(response.body);
+
+        List recipes = data.map((i) => Recipe.fromJson(i)).toList();
+
+        return recipes;
+      } else {
+        return [];
+      }
+    } catch (e) {
+      return Future.error(e);
+    }
+  }
+
   Future<Recipe> getRecipeById(String id) async {
     try {
       final response = await http.get(Uri.parse(baseurl + "recipe/" + id));
@@ -42,6 +59,21 @@ class HttpRecipe {
         Recipe recipes = Recipe.fromJson(data);
 
         return recipes;
+      } else {
+        return Future.error("failed");
+      }
+    } catch (e) {
+      return Future.error(e);
+    }
+  }
+
+  Future deleteRecipe(String id) async {
+    try {
+      final response =
+          await http.delete(Uri.parse(baseurl + "recipe/delete/$id"));
+      print(response.body);
+      if (response.statusCode == 204) {
+        return "deleted";
       } else {
         return Future.error("failed");
       }

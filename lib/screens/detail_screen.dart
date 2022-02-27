@@ -465,17 +465,12 @@ class _DetailsScreenState extends State<DetailsScreen> {
               },
               child: Text("Update"),
             ),
-            Positioned(
-              top: 3,
-              right: 15,
-              child: Icon(Icons.delete, color: Colors.red, size: 40),
-            ),
 
-            Positioned(
-              top: 3,
-              right: 15,
-              child: Icon(Icons.favorite, color: Colors.green, size: 40),
-            ),
+            IconButton(
+                onPressed: () async {
+                  await hhtpRecipe.deleteRecipe(recipe.id!);
+                },
+                icon: Icon(Icons.delete)),
 
             ...review.map((r) => Column(
                   children: [

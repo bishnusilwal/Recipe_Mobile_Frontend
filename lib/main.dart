@@ -32,6 +32,7 @@ class MyApp extends StatelessWidget {
       themeMode: ThemeMode.dark,
       darkTheme: ThemeData(
           brightness: Brightness.dark, primarySwatch: Colors.deepPurple),
+       
     );
   }
 }

@@ -1,42 +1,33 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
-import 'package:recipe_mobile_frontend/http/http_recipe.dart';
+import 'package:recipe_mobile_frontend/constants.dart';
 import 'package:recipe_mobile_frontend/models/recipe_models.dart';
 import 'package:recipe_mobile_frontend/screens/home_screen.dart';
 import 'package:http/http.dart' as http;
 
-class FavouriteScreen extends StatefulWidget {
-  const FavouriteScreen({Key? key}) : super(key: key);
-
+class PopularScreen extends StatefulWidget {
+  const PopularScreen({Key? key, }) : super(key: key);
   @override
-  _FavouriteScreenState createState() => _FavouriteScreenState();
+  _PopularScreenState createState() => _PopularScreenState();
 }
-
-class _FavouriteScreenState extends State<FavouriteScreen> {
+class _PopularScreenState extends State<PopularScreen> {
   List recipes = [];
   getRecipes() async {
-    var box = await Hive.openBox('token');
-    var token = box.getAt(0).token;
-    HttpRecipe httpRecipe = HttpRecipe();
-    final res = await http.get(Uri.parse(httpRecipe.baseurl + "favourite"),
-        headers: {"Authorization": "Bearer $token"});
-    List data = jsonDecode(res.body);
-    // final fasd = data.map((d) => Recipe.fromJson(d)).toList();
-    print(res.body);
-    // setState(() {
-    //   recipes = data;
-    // });
-    return data;
+    final res = await http.get(Uri.parse("http://34cd-2400-1a00-b050-c1a5-f00c-cc04-9ae7-9d8b.ngrok.io/recipe/"));
+    final data = jsonDecode(res.body);
+    final fasd = data.map((d) => Recipe.fromJson(d)).toList();
+    setState(() {
+      recipes = fasd;
+    });
+    return fasd;
   }
 
   @override
   void initState() {
     // TODO: implement initState
-    getRecipes();
-
     super.initState();
+    getRecipes();
   }
 
   @override
@@ -44,7 +35,7 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
-        title: Text("Your Favourite Recipes"),
+        title: Text("title"),
         backgroundColor: Colors.black12,
       ),
       body: OrientationBuilder(builder: (context, orientation) {
@@ -53,7 +44,9 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
           children: List.generate(recipes.length, (index) {
             return RecipeCard(
               id: index.toString(),
-              image: "assets/images/pic1.jpg",
+              image:
+                  Constants.baseUrl +
+                      recipes[index].rimg,
               title: recipes[index].name,
             );
           }),
