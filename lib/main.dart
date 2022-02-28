@@ -14,7 +14,7 @@ void main() async {
   final appDocumentDir = await path_provider.getApplicationDocumentsDirectory();
   Hive
     ..init(appDocumentDir.path)
-    ..registerAdapter(AuthAdapter());
+    ..registerAdapter(AuthModelAdapter());
   runApp(const MyApp());
 }
 
@@ -32,7 +32,6 @@ class MyApp extends StatelessWidget {
       themeMode: ThemeMode.dark,
       darkTheme: ThemeData(
           brightness: Brightness.dark, primarySwatch: Colors.deepPurple),
-       
     );
   }
 }

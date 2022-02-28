@@ -12,7 +12,7 @@ import 'package:recipe_mobile_frontend/screens/favourite_screen.dart';
 import 'package:recipe_mobile_frontend/screens/home_page.dart';
 import 'package:recipe_mobile_frontend/screens/profile_form.dart';
 import 'package:recipe_mobile_frontend/screens/detail_screen.dart';
-import 'package:recipe_mobile_frontend/screens/SearchScreen.dart';
+// import 'package:recipe_mobile_frontend/screens/SearchScreen.dart';
 import 'package:recipe_mobile_frontend/screens/veg_screen.dart';
 import 'package:recipe_mobile_frontend/screens/profile_form.dart';
 import 'package:recipe_mobile_frontend/screens/detail_screen.dart';

@@ -8,8 +8,6 @@ class Direction {
   });
 
   factory Direction.fromJson(Map<String, dynamic> json) {
-    return Direction(
-      description: json['discription']
-    );
+    return Direction(description: json['discription']);
   }
 }

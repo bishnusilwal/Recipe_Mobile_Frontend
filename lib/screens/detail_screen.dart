@@ -40,7 +40,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
 
   getRecipes() async {
     final url = Uri.parse(
-        "http://34cd-2400-1a00-b050-c1a5-f00c-cc04-9ae7-9d8b.ngrok.io/recipe/one/" +
+        "http://4bde-2400-1a00-b050-c1a5-d23-cea6-efe2-75d3.ngrok.io/recipe/one/" +
             widget.id);
 
     final res = await http.get(url);
@@ -62,7 +62,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
 
   addToFav() async {
     final url = Uri.parse(
-        "http://34cd-2400-1a00-b050-c1a5-f00c-cc04-9ae7-9d8b.ngrok.io/favourite/recipe/" +
+        "http://4bde-2400-1a00-b050-c1a5-d23-cea6-efe2-75d3.ngrok.io/favourite/recipe/" +
             widget.id);
     var box = await Hive.openBox('token');
     var token = box.getAt(0).token;
@@ -105,7 +105,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                   child: Image(
                     fit: BoxFit.cover,
                     image: NetworkImage(
-                      "http://34cd-2400-1a00-b050-c1a5-f00c-cc04-9ae7-9d8b.ngrok.io/${recipe.rimg}",
+                      "http://4bde-2400-1a00-b050-c1a5-d23-cea6-efe2-75d3.ngrok.io/${recipe.rimg}",
                     ),
                   ),
                 ),

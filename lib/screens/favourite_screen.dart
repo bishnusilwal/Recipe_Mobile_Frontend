@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
+import 'package:recipe_mobile_frontend/constants.dart';
 import 'package:recipe_mobile_frontend/http/http_recipe.dart';
 import 'package:recipe_mobile_frontend/models/recipe_models.dart';
 import 'package:recipe_mobile_frontend/screens/home_screen.dart';
@@ -16,19 +17,18 @@ class FavouriteScreen extends StatefulWidget {
 
 class _FavouriteScreenState extends State<FavouriteScreen> {
   List recipes = [];
-  getRecipes() async {
+  Future<List> getRecipes() async {
     var box = await Hive.openBox('token');
     var token = box.getAt(0).token;
-    HttpRecipe httpRecipe = HttpRecipe();
-    final res = await http.get(Uri.parse(httpRecipe.baseurl + "favourite"),
+    final res = await http.get(Uri.parse(Constants.baseUrl + "favourite"),
         headers: {"Authorization": "Bearer $token"});
     List data = jsonDecode(res.body);
-    // final fasd = data.map((d) => Recipe.fromJson(d)).toList();
-    print(res.body);
-    // setState(() {
-    //   recipes = data;
-    // });
-    return data;
+    List fasd = data.map((d) => Recipe.fromJson(d)).toList();
+    print("res: " + res.body);
+    setState(() {
+      recipes = fasd;
+    });
+    return fasd;
   }
 
   @override
@@ -53,7 +53,7 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
           children: List.generate(recipes.length, (index) {
             return RecipeCard(
               id: index.toString(),
-              image: "assets/images/pic1.jpg",
+              image: Constants.baseUrl + recipes[index].rimg,
               title: recipes[index].name,
             );
           }),

@@ -205,8 +205,10 @@ class _LoginScreenState extends State<LoginScreen> {
                 SizedBox(height: 19.0),
                 ElevatedButton(
                   onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => HomeScreen()));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => RegisterScreen()));
                   },
                   child: Text("Register"),
                 ),

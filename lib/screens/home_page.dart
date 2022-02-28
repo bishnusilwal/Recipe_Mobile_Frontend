@@ -110,28 +110,30 @@ class _HomePageState extends State<HomePage> {
             ),
             Row(
               children: [
-                ...category.map((r) => GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    RecipeScreen(url: r.name.toLowerCase())));
-                      },
-                      child: Expanded(
-                        child: Container(
-                          height: 100,
-                          decoration: BoxDecoration(
-                            // image: DecorationImage(
-                            //     image: AssetImage("assets/images/pic2.jpg"))
-                            borderRadius: BorderRadius.circular(10),
-                            color: Colors.grey,
-                          ),
-                          alignment: Alignment.center,
-                          child: Text(
-                            r.name,
-                            style: TextStyle(
-                              color: Colors.red,
+                ...category.map((r) => Expanded(
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      RecipeScreen(url: r.name.toLowerCase())));
+                        },
+                        child: Expanded(
+                          child: Container(
+                            height: 100,
+                            decoration: BoxDecoration(
+                              // image: DecorationImage(
+                              //     image: AssetImage("assets/images/pic2.jpg"))
+                              borderRadius: BorderRadius.circular(10),
+                              color: Colors.green,
+                            ),
+                            alignment: Alignment.center,
+                            child: Text(
+                              r.name,
+                              style: TextStyle(
+                                color: Colors.red,
+                              ),
                             ),
                           ),
                         ),
@@ -171,9 +173,7 @@ class _HomePageState extends State<HomePage> {
                   ...recipes.map((r) => PopularCard(
                       id: r.id,
                       title: r.name ?? "",
-                      image:
-                          "http://34cd-2400-1a00-b050-c1a5-f00c-cc04-9ae7-9d8b.ngrok.io/" +
-                              r.rimg))
+                      image: "http://4bde-2400-1a00-b050-c1a5-d23-cea6-efe2-75d3.ngrok.io/" + r.rimg))
                   // ,
                   // PopularCard(
                   //     title: "Paneer Masala Fry",
@@ -208,7 +208,9 @@ class _HomePageState extends State<HomePage> {
             ),
             SizedBox(
               height: 10,
+              
             ),
+
             Container(
               height: 250,
               width: double.infinity,
@@ -217,9 +219,7 @@ class _HomePageState extends State<HomePage> {
                 children: [
                   ...recommended.map((e) => RecipeCard(
                       title: e.name,
-                      image:
-                          "http://34cd-2400-1a00-b050-c1a5-f00c-cc04-9ae7-9d8b.ngrok.io/" +
-                              e.rimg,
+                      image: "http://4bde-2400-1a00-b050-c1a5-d23-cea6-efe2-75d3.ngrok.io/" + e.rimg,
                       id: e.id))
                 ],
               ),

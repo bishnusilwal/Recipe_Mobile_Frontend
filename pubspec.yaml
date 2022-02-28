@@ -40,10 +40,12 @@ dependencies:
   cupertino_icons: ^1.0.2
   image_picker: ^0.8.1+3
   dio: ^4.0.4
+ 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   hive_generator:
+  mockito: ^5.1.0
   build_runner:
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is

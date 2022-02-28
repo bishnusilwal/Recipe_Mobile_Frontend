@@ -1,25 +1,41 @@
+// GENERATED CODE - DO NOT MODIFY BY HAND
+
 part of 'auth_model.dart';
 
-class AuthAdapter extends TypeAdapter<AuthModel> {
+// **************************************************************************
+// TypeAdapterGenerator
+// **************************************************************************
+
+class AuthModelAdapter extends TypeAdapter<AuthModel> {
   @override
-  final typeId = 3;
+  final int typeId = 3;
 
   @override
   AuthModel read(BinaryReader reader) {
-    var numOfFields = reader.readByte();
-    var fields = <int, dynamic>{
-      for (var i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
+    final numOfFields = reader.readByte();
+    final fields = <int, dynamic>{
+      for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return AuthModel(
-      token: fields[0] as String,
+      token: fields[0] as String?,
     );
   }
 
   @override
   void write(BinaryWriter writer, AuthModel obj) {
     writer
-      ..writeByte(2)
+      ..writeByte(1)
       ..writeByte(0)
       ..write(obj.token);
   }
+
+  @override
+  int get hashCode => typeId.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is AuthModelAdapter &&
+          runtimeType == other.runtimeType &&
+          typeId == other.typeId;
 }
