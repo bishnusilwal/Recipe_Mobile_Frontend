@@ -173,7 +173,10 @@ class _HomePageState extends State<HomePage> {
                   ...recipes.map((r) => PopularCard(
                       id: r.id,
                       title: r.name ?? "",
-                      image: "http://4bde-2400-1a00-b050-c1a5-d23-cea6-efe2-75d3.ngrok.io/" + r.rimg))
+                      
+                      image:
+                          "http://4bde-2400-1a00-b050-c1a5-d23-cea6-efe2-75d3.ngrok.io/" +
+                              r.rimg))
                   // ,
                   // PopularCard(
                   //     title: "Paneer Masala Fry",
@@ -208,9 +211,7 @@ class _HomePageState extends State<HomePage> {
             ),
             SizedBox(
               height: 10,
-              
             ),
-
             Container(
               height: 250,
               width: double.infinity,
@@ -219,7 +220,9 @@ class _HomePageState extends State<HomePage> {
                 children: [
                   ...recommended.map((e) => RecipeCard(
                       title: e.name,
-                      image: "http://4bde-2400-1a00-b050-c1a5-d23-cea6-efe2-75d3.ngrok.io/" + e.rimg,
+                      image:
+                          "http://4bde-2400-1a00-b050-c1a5-d23-cea6-efe2-75d3.ngrok.io/" +
+                              e.rimg,
                       id: e.id))
                 ],
               ),

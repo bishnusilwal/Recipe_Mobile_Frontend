@@ -6,6 +6,7 @@ import 'package:recipe_mobile_frontend/screens/home_screen.dart';
 import 'package:recipe_mobile_frontend/screens/recipe_form.dart';
 import 'package:path_provider/path_provider.dart' as path_provider;
 import 'package:flutter/services.dart';
+import 'package:awesome_notifications/awesome_notifications.dart';
 
 import 'models/auth_model.dart';
 
@@ -15,6 +16,19 @@ void main() async {
   Hive
     ..init(appDocumentDir.path)
     ..registerAdapter(AuthModelAdapter());
+    AwesomeNotifications().initialize(null, // icon for your app notification
+      [
+        NotificationChannel(
+            channelKey: 'key1',
+            channelName: 'keyword',
+            channelDescription: "Notification example",
+            defaultColor: const Color(0XFF9050DD),
+            ledColor: Colors.white,
+            playSound: true,
+            enableLights: true,
+            importance: NotificationImportance.High,
+            enableVibration: true)
+      ]);
   runApp(const MyApp());
 }
 
