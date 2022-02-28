@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:recipe_mobile_frontend/http/httpuser.dart';
 import 'package:recipe_mobile_frontend/models/user_models.dart';
@@ -243,6 +244,16 @@ class _ProfileSetUpScreenState extends State<ProfileSetUpScreen> {
                       phoneController.text.isNotEmpty ||
                       bioController.text.isNotEmpty ||
                       uimgController.text.isNotEmpty) {
+                    await AwesomeNotifications().createNotification(
+                      content: NotificationContent(
+                          id: 3,
+                          channelKey: 'key1',
+                          title: 'Just a notification',
+                          body: 'You just Update Your Profile',
+                          notificationLayout: NotificationLayout.BigPicture,
+                          bigPicture:
+                              'https://images.idgesg.net/images/article/2019/01/android-q-notification-inbox-100785464-large.jpg?auto=webp&quality=85,70'),
+                    );
                     HttpConnectUser http = HttpConnectUser();
                     bool isUser = await http.profilePost(User(
                       fullname: fullnameController.text,
@@ -260,7 +271,6 @@ class _ProfileSetUpScreenState extends State<ProfileSetUpScreen> {
                 },
               ),
             ),
-        
           ],
         ),
       ),

@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:hive/hive.dart';
+import 'package:recipe_mobile_frontend/fingerprint/auth.dart';
 import 'package:recipe_mobile_frontend/http/http_recipe.dart';
 import 'package:recipe_mobile_frontend/models/Ingredients_models.dart';
 import 'package:recipe_mobile_frontend/models/direction_models.dart';
@@ -447,8 +448,15 @@ class _DetailsScreenState extends State<DetailsScreen> {
                 color: Colors.blueAccent,
                 textColor: Colors.black,
                 onPressed: () async {
-                  await hhtpRecipe.reviewRecipe(
-                      reviewController.text, recipe.id!);
+                  LocalAuthApi localAuth = LocalAuthApi();
+                  bool isFingerCorrect = await localAuth.authenticate();
+                  if (isFingerCorrect) {
+                    await hhtpRecipe.reviewRecipe(
+                        reviewController.text, recipe.id!);
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text("Finger print not matched")));
+                  }
                 },
               ),
             ),
