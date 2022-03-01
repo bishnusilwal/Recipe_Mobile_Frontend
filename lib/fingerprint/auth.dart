@@ -3,16 +3,16 @@ import 'package:local_auth/auth_strings.dart';
 import 'package:local_auth/local_auth.dart';
 
 class LocalAuthApi {
-  static final _auth = LocalAuthentication();
+  final _auth = LocalAuthentication();
 
-  static AndroidAuthMessages androidStrings = const AndroidAuthMessages(
+  AndroidAuthMessages androidStrings = const AndroidAuthMessages(
     cancelButton: 'cancel',
     goToSettingsButton: 'setting',
     biometricNotRecognized: 'Not Recognized',
     biometricSuccess: 'authentication success',
   );
 
-  static Future<bool> hasBiometrics() async {
+  Future<bool> hasBiometrics() async {
     try {
       return await _auth.canCheckBiometrics;
     } on PlatformException {
@@ -34,6 +34,6 @@ class LocalAuthApi {
           stickyAuth: true);
     } on PlatformException {
       return false;
-    }
+    } 
   }
 }

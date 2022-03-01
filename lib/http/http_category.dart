@@ -7,7 +7,7 @@ class HttpCategory {
   Future<List<Category>> getCategories() async {
     try {
       final res = await http.get(Uri.parse(
-          "http://4bde-2400-1a00-b050-c1a5-d23-cea6-efe2-75d3.ngrok.io/category"));
+          "http://3046-110-44-119-186.ngrok.io/category"));
       List data = jsonDecode(res.body);
       List<Category> categories =
           data.map((e) => Category.fromJson(e)).toList();

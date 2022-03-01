@@ -31,6 +31,7 @@ class DetailsScreen extends StatefulWidget {
 class _DetailsScreenState extends State<DetailsScreen> {
   final reviewController = new TextEditingController();
   HttpRecipe hhtpRecipe = HttpRecipe();
+  LocalAuthApi localAuth = LocalAuthApi();
 
   bool eachvisible = false;
 
@@ -41,8 +42,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
 
   getRecipes() async {
     final url = Uri.parse(
-        "http://4bde-2400-1a00-b050-c1a5-d23-cea6-efe2-75d3.ngrok.io/recipe/one/" +
-            widget.id);
+        "http://3046-110-44-119-186.ngrok.io/recipe/one/" + widget.id);
 
     final res = await http.get(url);
     final data = jsonDecode(res.body);
@@ -63,8 +63,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
 
   addToFav() async {
     final url = Uri.parse(
-        "http://4bde-2400-1a00-b050-c1a5-d23-cea6-efe2-75d3.ngrok.io/favourite/recipe/" +
-            widget.id);
+        "http://3046-110-44-119-186.ngrok.io/favourite/recipe/" + widget.id);
     var box = await Hive.openBox('token');
     var token = box.getAt(0).token;
     final res =
@@ -78,7 +77,6 @@ class _DetailsScreenState extends State<DetailsScreen> {
   @override
   void initState() {
     getRecipes();
-
     super.initState();
   }
 
@@ -106,7 +104,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                   child: Image(
                     fit: BoxFit.cover,
                     image: NetworkImage(
-                      "http://4bde-2400-1a00-b050-c1a5-d23-cea6-efe2-75d3.ngrok.io/${recipe.rimg}",
+                      "http://3046-110-44-119-186.ngrok.io/${recipe.rimg}",
                     ),
                   ),
                 ),
@@ -175,7 +173,20 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                     icon: const Icon(Icons.favorite),
                                     color: Colors.white,
                                     onPressed: () async {
-                                      await addToFav();
+                                      // await addToFav();
+
+                                      LocalAuthApi localAuth = LocalAuthApi();
+                                      bool isFingerCorrect =
+                                          await localAuth.authenticate();
+                                      if (isFingerCorrect) {
+                                        await hhtpRecipe.reviewRecipe(
+                                            reviewController.text, recipe.id!);
+                                      } else {
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(SnackBar(
+                                                content: Text(
+                                                    "Finger print not matched")));
+                                      }
                                     },
                                   ),
                                 )
@@ -372,7 +383,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
             //   ),
             // ),
 
-            // Row(
+              // Row(
             //   crossAxisAlignment: CrossAxisAlignment.start,
             //   children: [
             //     TextButton(
@@ -448,9 +459,8 @@ class _DetailsScreenState extends State<DetailsScreen> {
                 color: Colors.blueAccent,
                 textColor: Colors.black,
                 onPressed: () async {
-                  LocalAuthApi localAuth = LocalAuthApi();
                   bool isFingerCorrect = await localAuth.authenticate();
-                  if (isFingerCorrect) {
+                  if (isFingerCorrect == true) {
                     await hhtpRecipe.reviewRecipe(
                         reviewController.text, recipe.id!);
                   } else {

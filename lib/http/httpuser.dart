@@ -6,8 +6,7 @@ import 'package:recipe_mobile_frontend/models/auth_model.dart';
 import 'package:recipe_mobile_frontend/models/user_models.dart';
 
 class HttpConnectUser {
-  String baseurl =
-      'http://4bde-2400-1a00-b050-c1a5-d23-cea6-efe2-75d3.ngrok.io/';
+  String baseurl = 'http://3046-110-44-119-186.ngrok.io/';
 
   Future<bool> registerPost(User user) async {
     Map<String, dynamic> userMap = {

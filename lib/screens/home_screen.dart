@@ -1,6 +1,8 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:recipe_mobile_frontend/accelerometer.dart';
 import 'package:recipe_mobile_frontend/http/http_recipe.dart';
 import 'package:recipe_mobile_frontend/http/httpuser.dart';
 import 'package:recipe_mobile_frontend/models/category_models.dart';
@@ -32,6 +34,38 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int currentIndex = 0;
   PageController controller = PageController();
+
+  late List<double> _userAccelerometerValues;
+  final _streamSubscriptions = <StreamSubscription<dynamic>>[];
+
+  @override
+  void dispose() {
+    super.dispose();
+    for (final subscription in _streamSubscriptions) {
+      subscription.cancel();
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _streamSubscriptions.add(
+      userAccelerometerEvents.listen(
+        (UserAccelerometerEvent event) {
+          setState(() {
+            _userAccelerometerValues = <double>[event.x, event.y, event.z];
+          });
+          print(_userAccelerometerValues);
+          if (_userAccelerometerValues != null) {
+            if (_userAccelerometerValues[1] > 2 &&
+                _userAccelerometerValues[1] < 4) {
+              controller.jumpToPage(3);
+            }
+          }
+        },
+      ),
+    );
+  }
 
   void handlePage(index) {
     setState(() {

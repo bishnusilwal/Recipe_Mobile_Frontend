@@ -18,7 +18,7 @@ class _PopularScreenState extends State<PopularScreen> {
   List recipes = [];
   getRecipes() async {
     final res = await http
-        .get(Uri.parse("http://4bde-2400-1a00-b050-c1a5-d23-cea6-efe2-75d3.ngrok.io/recipe/"));
+        .get(Uri.parse("http://3046-110-44-119-186.ngrok.io/recipe/"));
     final data = jsonDecode(res.body);
     final fasd = data.map((d) => Recipe.fromJson(d)).toList();
     setState(() {
