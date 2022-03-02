@@ -10,16 +10,16 @@ import 'recipe_test.mocks.dart';
 
 @GenerateMocks([http.Client])
 void main() {
-  group("recipe tests", () {
-    HttpRecipe httpRecipe = HttpRecipe();
+  group("user tests", () {
+  HttpConnectUser httpConnectUse = HttpConnectUser();
 
-    test('return list of movies', () async {
+    test('return profile', () async {
       final client = MockClient();
       when(client
-          .get(Uri.parse(Constants.baseUrl + "recipe/"))
+          .get(Uri.parse(Constants.baseUrl + "user/Profile"))
           .then((value) async => http.Response('[]', 200)));
 
-      expect(await httpRecipe.getRecipe(), isA<List>());
+    
     });
   });
 

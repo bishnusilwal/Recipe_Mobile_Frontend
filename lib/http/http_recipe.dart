@@ -6,7 +6,7 @@ import 'package:recipe_mobile_frontend/models/recipe_models.dart';
 import 'package:http/http.dart' as http;
 
 class HttpRecipe {
-  String baseurl = 'http://3046-110-44-119-186.ngrok.io/';
+  String baseurl = 'http://3b5b-116-66-195-154.ngrok.io/';
 
   Future getToken() async {
     var box = await Hive.openBox('token');

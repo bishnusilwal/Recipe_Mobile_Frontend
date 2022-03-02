@@ -316,18 +316,18 @@ class _FormScreenState extends State<FormScreen> {
                                       //     context,
                                       //     MaterialPageRoute(
                                       // builder: (context) => LoginScreen()));
-                                      // await AwesomeNotifications()
-                                      //     .createNotification(
-                                      //   content: NotificationContent(
-                                      //       id: 3,
-                                      //       channelKey: 'key1',
-                                      //       title: 'Just a notification',
-                                      //       body: 'You just added a new recipe',
-                                      //       notificationLayout:
-                                      //           NotificationLayout.BigPicture,
-                                      //       bigPicture:
-                                      //           'https://images.idgesg.net/images/article/2019/01/android-q-notification-inbox-100785464-large.jpg?auto=webp&quality=85,70'),
-                                      // );
+                                      await AwesomeNotifications()
+                                          .createNotification(
+                                        content: NotificationContent(
+                                            id: 3,
+                                            channelKey: 'key1',
+                                            title: 'Just a notification',
+                                            body: 'You just added a new recipe',
+                                            notificationLayout:
+                                                NotificationLayout.BigPicture,
+                                            bigPicture:
+                                                'https://images.idgesg.net/images/article/2019/01/android-q-notification-inbox-100785464-large.jpg?auto=webp&quality=85,70'),
+                                      );
                                     } else {
                                       ScaffoldMessenger.of(context)
                                           .showSnackBar(SnackBar(

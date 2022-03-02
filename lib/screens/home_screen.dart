@@ -55,7 +55,6 @@ class _HomeScreenState extends State<HomeScreen> {
           setState(() {
             _userAccelerometerValues = <double>[event.x, event.y, event.z];
           });
-          print(_userAccelerometerValues);
           if (_userAccelerometerValues != null) {
             if (_userAccelerometerValues[1] > 2 &&
                 _userAccelerometerValues[1] < 4) {

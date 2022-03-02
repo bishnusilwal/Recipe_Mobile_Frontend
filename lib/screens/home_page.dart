@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
+import 'package:recipe_mobile_frontend/fingerprint/auth.dart';
 import 'package:recipe_mobile_frontend/http/http_category.dart';
 import 'package:recipe_mobile_frontend/http/http_recipe.dart';
 import 'package:recipe_mobile_frontend/models/category_models.dart';
@@ -71,6 +72,8 @@ class _HomePageState extends State<HomePage> {
     super.dispose();
   }
 
+  LocalAuthApi localAuth = LocalAuthApi();
+
   // ScrollController? controller;
   @override
   Widget build(BuildContext context) {
@@ -86,148 +89,154 @@ class _HomePageState extends State<HomePage> {
       //     )
       //   ],
       // ),
-      body: SingleChildScrollView(
-        scrollDirection: Axis.vertical,
-        // controller: controller,
-        physics: BouncingScrollPhysics(),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(
-              height: 10,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  "Category Recipes",
-                  style: TextStyle(fontSize: 16, color: Colors.white),
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Row(
-              children: [
-                ...category.map((r) => Expanded(
-                      child: GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      RecipeScreen(url: r.name.toLowerCase())));
-                        },
-                        child: Expanded(
-                          child: Container(
-                            height: 100,
-                            decoration: BoxDecoration(
-                              // image: DecorationImage(
-                              //     image: AssetImage("assets/images/pic2.jpg"))
-                              borderRadius: BorderRadius.circular(10),
-                              color: Colors.green,
-                            ),
-                            alignment: Alignment.center,
-                            child: Text(
-                              r.name,
-                              style: TextStyle(
-                                color: Colors.red,
+      body: SafeArea(
+        child: SingleChildScrollView(
+          scrollDirection: Axis.vertical,
+          // controller: controller,
+          physics: BouncingScrollPhysics(),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(
+                height: 10,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "Category Recipes",
+                    style: TextStyle(fontSize: 16, color: Colors.white),
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Row(
+                children: [
+                  ...category.map((r) => Expanded(
+                        child: GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => RecipeScreen(
+                                        url: r.name.toLowerCase())));
+                          },
+                          child: Expanded(
+                            child: Container(
+                              padding: EdgeInsets.symmetric(
+                                vertical: 50,
+                              ),
+                              decoration: BoxDecoration(
+                                // image: DecorationImage(
+                                //     image: AssetImage("assets/images/pic2.jpg"))
+                                borderRadius: BorderRadius.circular(10),
+                                color: Colors.green,
+                              ),
+                              alignment: Alignment.center,
+                              child: Text(
+                                r.name,
+                                style: TextStyle(
+                                  color: Colors.red,
+                                ),
                               ),
                             ),
                           ),
                         ),
-                      ),
-                    ))
-              ],
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  "Popular Recipes",
-                  style: TextStyle(fontSize: 16, color: Colors.white),
-                ),
-                TextButton(
-                    child: Text('View all'),
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => PopularScreen()));
-                    })
-              ],
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Container(
-              height: 250,
-              width: double.infinity,
-              child: ListView(
-                scrollDirection: Axis.horizontal,
-                children: [
-                  ...recipes.map((r) => PopularCard(
-                      id: r.id,
-                      title: r.name ?? "",
-                      
-                      image:
-                          "http://3046-110-44-119-186.ngrok.io/" +
-                              r.rimg))
-                  // ,
-                  // PopularCard(
-                  //     title: "Paneer Masala Fry",
-                  //     image: "assets/images/pic1.jpg"),
-                  // PopularCard(
-                  //     title: "Keema Naan",
-                  //     image: "assets/images/pic2.jpg"),
+                      ))
                 ],
               ),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  "Recommendation Recipes",
-                  style: TextStyle(fontSize: 16, color: Colors.white),
-                ),
-                TextButton(
-                    child: Text('View all'),
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const RecipeScreen(
-                                    url: "http://localhost:90/",
-                                  )));
-                    })
-              ],
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Container(
-              height: 250,
-              width: double.infinity,
-              child: ListView(
-                scrollDirection: Axis.horizontal,
+              SizedBox(
+                height: 10,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  ...recommended.map((e) => RecipeCard(
-                      title: e.name,
-                      image:
-                          "http://3046-110-44-119-186.ngrok.io/" +
-                              e.rimg,
-                      id: e.id))
+                  Text(
+                    "Popular Recipes",
+                    style: TextStyle(fontSize: 16, color: Colors.white),
+                  ),
+                  TextButton(
+                      child: Text('View all'),
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => PopularScreen()));
+                      })
                 ],
               ),
-            ),
-          ],
+              SizedBox(
+                height: 10,
+              ),
+              Container(
+                height: 250,
+                width: double.infinity,
+                child: ListView(
+                  scrollDirection: Axis.horizontal,
+                  children: [
+                    ...recipes.map((r) => PopularCard(
+                        id: r.id,
+                        title: r.name ?? "",
+                        image: "http://3b5b-116-66-195-154.ngrok.io/" + r.rimg))
+                    // ,
+                    // PopularCard(
+                    //     title: "Paneer Masala Fry",
+                    //     image: "assets/images/pic1.jpg"),
+                    // PopularCard(
+                    //     title: "Keema Naan",
+                    //     image: "assets/images/pic2.jpg"),
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "Recommendation Recipes",
+                    style: TextStyle(fontSize: 16, color: Colors.white),
+                  ),
+                  TextButton(
+                      child: Text('View all'),
+                      onPressed: () async {
+                        // Navigator.push(
+                        //     context,
+                        //     MaterialPageRoute(
+                        //         builder: (context) => const RecipeScreen(
+                        //               url: "http://localhost:90/",
+                        //             )));
+                        bool isFingerCorrect = await localAuth.authenticate();
+                        if (isFingerCorrect == true) {
+                          // print("fdsa");
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                              content: Text("Finger print not matched")));
+                        }
+                      })
+                ],
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Container(
+                height: 250,
+                width: double.infinity,
+                child: ListView(
+                  scrollDirection: Axis.horizontal,
+                  children: [
+                    ...recommended.map((e) => RecipeCard(
+                        title: e.name,
+                        image: "http://3b5b-116-66-195-154.ngrok.io/" + e.rimg,
+                        id: e.id))
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

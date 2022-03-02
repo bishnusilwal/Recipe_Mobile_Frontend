@@ -34,6 +34,6 @@ class LocalAuthApi {
           stickyAuth: true);
     } on PlatformException {
       return false;
-    } 
+    }
   }
 }

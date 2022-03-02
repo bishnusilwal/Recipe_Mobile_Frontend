@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:hive/hive.dart';
@@ -42,7 +43,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
 
   getRecipes() async {
     final url = Uri.parse(
-        "http://3046-110-44-119-186.ngrok.io/recipe/one/" + widget.id);
+        "http://3b5b-116-66-195-154.ngrok.io/recipe/one/" + widget.id);
 
     final res = await http.get(url);
     final data = jsonDecode(res.body);
@@ -61,9 +62,22 @@ class _DetailsScreenState extends State<DetailsScreen> {
     return data;
   }
 
+  // Future addToFav(String id) async {
+  //   final url =
+  //       Uri.parse("http://3046-110-44-119-186.ngrok.io/favourite/recipe/$id");
+  //   var box = await Hive.openBox('token');
+  //   var token = box.getAt(0).token;
+  //   final res =
+  //       await http.post(url, headers: {"Authorization": "Bearer $token"});
+  //   print(url);
+  //   if (res.statusCode == 200) {
+  //     return "Liked";
+  //   }
+  // }
+
   addToFav() async {
     final url = Uri.parse(
-        "http://3046-110-44-119-186.ngrok.io/favourite/recipe/" + widget.id);
+        "http://3b5b-116-66-195-154.ngrok.io/favourite/recipe/" + widget.id);
     var box = await Hive.openBox('token');
     var token = box.getAt(0).token;
     final res =
@@ -104,7 +118,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                   child: Image(
                     fit: BoxFit.cover,
                     image: NetworkImage(
-                      "http://3046-110-44-119-186.ngrok.io/${recipe.rimg}",
+                      "http://3b5b-116-66-195-154.ngrok.io/${recipe.rimg}",
                     ),
                   ),
                 ),
@@ -173,20 +187,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                     icon: const Icon(Icons.favorite),
                                     color: Colors.white,
                                     onPressed: () async {
-                                      // await addToFav();
-
-                                      LocalAuthApi localAuth = LocalAuthApi();
-                                      bool isFingerCorrect =
-                                          await localAuth.authenticate();
-                                      if (isFingerCorrect) {
-                                        await hhtpRecipe.reviewRecipe(
-                                            reviewController.text, recipe.id!);
-                                      } else {
-                                        ScaffoldMessenger.of(context)
-                                            .showSnackBar(SnackBar(
-                                                content: Text(
-                                                    "Finger print not matched")));
-                                      }
+                                      await addToFav();
                                     },
                                   ),
                                 )
@@ -383,7 +384,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
             //   ),
             // ),
 
-              // Row(
+            // Row(
             //   crossAxisAlignment: CrossAxisAlignment.start,
             //   children: [
             //     TextButton(
@@ -486,7 +487,17 @@ class _DetailsScreenState extends State<DetailsScreen> {
 
             IconButton(
                 onPressed: () async {
-                  await hhtpRecipe.deleteRecipe(recipe.id!);
+                  content:
+                  NotificationContent(
+                      id: 3,
+                      channelKey: 'key1',
+                      title: 'Just a notification',
+                      body: 'You just Update Your Profile',
+                      notificationLayout: NotificationLayout.BigPicture,
+                      bigPicture:
+                          'https://images.idgesg.net/images/article/2019/01/android-q-notification-inbox-100785464-large.jpg?auto=webp&quality=85,70');
+                  // );
+                  // await hhtpRecipe.deleteRecipe(recipe.id!);
                 },
                 icon: Icon(Icons.delete)),
 

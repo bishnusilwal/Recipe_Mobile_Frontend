@@ -32,6 +32,7 @@ class _RecipeScreenState extends State<RecipeScreen> {
     // TODO: implement initState
     getRecipes();
     print(Constants.baseUrl + Constants.recipeUrl + widget.url);
+    print(recipes);
     super.initState();
   }
 
@@ -50,8 +51,7 @@ class _RecipeScreenState extends State<RecipeScreen> {
             return RecipeCard(
               id: index.toString(),
               image:
-                  "http://3046-110-44-119-186.ngrok.io/" +
-                      recipes[index].rimg,
+                  "http://3b5b-116-66-195-154.ngrok.io/" + recipes[index].rimg,
               title: recipes[index].name,
             );
           }),

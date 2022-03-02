@@ -6,8 +6,8 @@ import 'package:http/http.dart' as http;
 class HttpCategory {
   Future<List<Category>> getCategories() async {
     try {
-      final res = await http.get(Uri.parse(
-          "http://3046-110-44-119-186.ngrok.io/category"));
+      final res = await http
+          .get(Uri.parse("http://3b5b-116-66-195-154.ngrok.io/category"));
       List data = jsonDecode(res.body);
       List<Category> categories =
           data.map((e) => Category.fromJson(e)).toList();
