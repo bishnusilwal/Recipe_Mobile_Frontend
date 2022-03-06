@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:recipe_mobile_frontend/screens/direction_screen.dart';
 import 'package:recipe_mobile_frontend/screens/home_page.dart';
-import 'package:recipe_mobile_frontend/screens/pouplar_screen.dart';
-import 'package:recipe_mobile_frontend/screens/recipe_form.dart';
+import 'package:recipe_mobile_frontend/screens/home_screen.dart';
+import 'package:recipe_mobile_frontend/widget/custom_button.dart';
 
 void main() {
-  testWidgets("my Testing", (WidgetTester tester) async {
+  testWidgets("home page testing", (WidgetTester tester) async {
+    final home = find.byType(BottomNavigationBarItem);
+
     await tester.pumpWidget(MaterialApp(
-      home: HomePage(),
+      home: HomeScreen(),
     ));
-    final home = find.byType(AppBar);
-    expect(home, findsOneWidget);
+    expect(home, findsNWidgets(0));
   });
 }

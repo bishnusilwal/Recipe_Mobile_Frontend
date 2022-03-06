@@ -13,10 +13,10 @@ void main() {
   group("recipe tests", () {
     HttpRecipe httpRecipe = HttpRecipe();
 
-    test('add list of recipe', () async {
+    test('update list of recipe', () async {
       final client = MockClient();
-      when(client.post(
-        Uri.parse(Constants.baseUrl + "recipe/"),
+      when(client.put(
+        Uri.parse(Constants.baseUrl + "recipe/update"),
         headers: {"Authorization": "Bearer "},
         body: {
           "username": "bishnu",

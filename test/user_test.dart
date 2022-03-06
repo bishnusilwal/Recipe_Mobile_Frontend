@@ -11,16 +11,13 @@ import 'recipe_test.mocks.dart';
 @GenerateMocks([http.Client])
 void main() {
   group("user tests", () {
-  HttpConnectUser httpConnectUse = HttpConnectUser();
+    HttpConnectUser httpConnectUse = HttpConnectUser();
 
     test('return profile', () async {
       final client = MockClient();
       when(client
-          .get(Uri.parse(Constants.baseUrl + "user/Profile"))
-          .then((value) async => http.Response('[]', 200)));
-
-    
+          .get(Uri.parse(Constants.baseUrl + "user/Profile"),headers: { "Authorization": "Bearer "})
+          .then((value) async => http.Response('{}', 200)));
     });
   });
-
 }

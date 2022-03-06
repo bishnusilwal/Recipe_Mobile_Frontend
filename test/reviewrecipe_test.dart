@@ -10,25 +10,14 @@ import 'recipe_test.mocks.dart';
 
 @GenerateMocks([http.Client])
 void main() {
-  group("recipe tests", () {
+  group("review tests", () {
     HttpRecipe httpRecipe = HttpRecipe();
 
-    test('add list of recipe', () async {
+    test('return list of review', () async {
       final client = MockClient();
-      when(client.post(
-        Uri.parse(Constants.baseUrl + "recipe/"),
-        headers: {"Authorization": "Bearer "},
-        body: {
-          "username": "bishnu",
-          "discription": "bissfsfdhnu",
-          "pretime": "10",
-          "cooktime": "4",
-          "totaltime": "14",
-          "category": "veg",
-          "ingredients": "sdffdf",
-          "direction": "fgfg",
-        },
-      ).then((value) async => http.Response('', 200)));
+      when(client
+          .get(Uri.parse(Constants.baseUrl + "recipe/review"))
+          .then((value) async => http.Response('[]', 200)));
 
       expect(await httpRecipe.getRecipe(), isA<List>());
     });
